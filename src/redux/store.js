@@ -3,15 +3,14 @@ import thunk from 'redux-thunk';
 import rootReducer from './reducers';
 
 const initialState = {};
+const middleware = [ thunk ];
 const { NODE_ENV } = process.env;
-
-console.log(NODE_ENV);
 
 const store = createStore(
 	rootReducer,
 	initialState,
 	compose(
-		applyMiddleware(thunk),
+		applyMiddleware(...middleware),
 		NODE_ENV !== 'production' ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : null
 	)
 );
