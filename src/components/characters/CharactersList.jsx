@@ -5,26 +5,40 @@ import Card from '../commons/card/Card';
 import { connect } from 'react-redux';
 import { getCharacters } from '../../redux/actions/marvelActions';
 
-import { FixedSizeList as List } from "react-window";
-
+import InfiniteScroll from 'react-infinite-scroll-component';
 
 class CharactersList extends PureComponent {
     state = {
         list: [],
-        limit: 100,
+        limit: 20,
         offset: 0
     }
 
+    //Load Caracters
     componentDidMount = () => {
         const { limit, offset } = this.state;
         this.props.getCharacters(limit, offset);
 
     }
 
+    // Set list with 
     componentDidUpdate = (prevProps) => {
         if (prevProps !== this.props) {
-            this.setState({ list: this.props.characters });
+            this.setState({ list: [...this.state.list, ...this.props.characters] });
         }
+    }
+
+    //Fetchs new items 
+    fetchData = () => {
+        const { limit, offset } = this.state;
+        this.setState({ offset: limit + offset });
+        //Prevents dupliate fetch if offset is = 0 again;
+        if(offset === 0) {
+            this.props.getCharacters(limit, offset +1);
+        } else {
+            this.props.getCharacters(limit, offset);
+        }
+       
     }
 
     render() {
@@ -34,24 +48,25 @@ class CharactersList extends PureComponent {
 
         if (list.length > 0) {
 
-            const Row = ({ index, style }) => (
-                <div style={style}>
-                    {<Card data={list[index]} />}
-                </div>
-            );
+            //* Removing duplicates from list
+            const seen = new Set();
+            const filteredList = list.filter(el => {
+                const duplicate = seen.has(el.id);
+                seen.add(el.id);
+                return !duplicate;
+            });
 
             content = (
-                <List
-                    className="container mt-3"
-                    height={window.innerWidth}
-                    itemCount={list.length}
-                    itemSize={260}
-                    width={window.innerWidth}
+                <InfiniteScroll
+                    className="container grid my-4"
+                    dataLength={list.length}
+                    next={this.fetchData}
+                    hasMore={true}
+                    loader={<div className="my-4"><Spinner fullHeigh={false} /></div>}
                 >
-                    {Row}
-                </List>
-
-            )
+                    {filteredList.map((item, i) => <Card key={i} data={item} />)}
+                </InfiniteScroll>
+            );
 
         }
         return content
@@ -59,7 +74,7 @@ class CharactersList extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    characters: state.marvel.characters
+    characters: state.marvel.characters,
 });
 
 export default connect(mapStateToProps, { getCharacters })(CharactersList);

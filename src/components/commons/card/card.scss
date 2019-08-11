@@ -1,44 +1,60 @@
-// .Card {
-//  background: #333;
-//  height: 324px;
-//  width: 216;
-//  position: absolute;
-//  .outter-card {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-//   width: auto;
-//   margin: auto;
-//   a {
-//    text-decoration: none;
-//   }
-//   .inner-card {
-//    position: relative;
-//    transition: all 250ms linear;
+.Card {
+ height: 324px;
+ width: 216px;
 
-//    h4 {
-//     position: absolute;
-//     color: #fff;
-//     font-size: 1.9rem;
-//     text-shadow: 1px 1px 1px #000000;
-//     font-weight: 500;
-//     text-decoration: none;
+ .outter-card {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: auto;
+  margin: auto;
+  a {
+   text-decoration: none;
+  }
+
+  .inner-card {
+   position: relative;
+   transition: all 250ms linear;
+
+   h4 {
+    position: absolute;
+    color: #fff;
+    font-size: 1.9rem;
+    text-shadow: 1px 1px 1px #000000;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 250ms linear;
+    bottom: -50%;
+    left: 3%;
+   }
+
+   overflow: hidden;
+   &:hover {
+    box-shadow: 0px 0px 15px #333;
+    h4 {
+     bottom: 7%;
+    }
+   }
+  }
+ }
+}
+
+// .inner-card {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
+//     position: relative;
 //     transition: all 250ms linear;
-//     bottom: -50%;
-//     left: 3%;
-//    }
 
-//    overflow: hidden;
-//    &:hover {
-//     box-shadow: 0px 0px 15px #333;
 //     h4 {
-//      bottom: 7%;
+//      position: absolute;
+//      color: #fff;
+//      font-size: 1.9rem;
+//      text-shadow: 1px 1px 1px #000000;
+//      font-weight: 500;
+//      text-decoration: none;
+//      transition: all 250ms linear;
+//      bottom: -50%;
+//      left: 3%;
 //     }
 //    }
-//   }
-//  }
-// }
-
-// .Card {
-
-// }
