@@ -1,0 +1,35 @@
+#SearchBar {
+ position: relative;
+ right: 0;
+ background: transparent;
+ border-radius: 2rem;
+ width: 45px;
+ overflow: hidden;
+ transition: all 250ms ease-in-out;
+
+ &:hover {
+  width: 275px;
+  background: #e3e3e3;
+  input {
+   opacity: 1;
+  }
+ }
+
+ input {
+  opacity: 0;
+  background: transparent;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 2rem;
+
+  &:focus {
+   outline: none;
+  }
+ }
+
+ button {
+  position: absolute;
+  right: 1%;
+  border-radius: 50%;
+ }
+}

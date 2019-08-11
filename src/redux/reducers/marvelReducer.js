@@ -1,4 +1,4 @@
-import { GET_CHARACTERS, GET_ONE_CHARACTER, GET_ONE_COMIC } from '../types';
+import { GET_CHARACTERS, GET_ONE_CHARACTER, GET_ONE_COMIC, GET_ONE_STORY } from '../types';
 
 const initialState = {};
 
@@ -22,6 +22,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 singleComic: action.payload[0]
+            }
+
+        case GET_ONE_STORY:
+            return {
+                ...state,
+                singleStory: action.payload[0]
             }
 
         default:

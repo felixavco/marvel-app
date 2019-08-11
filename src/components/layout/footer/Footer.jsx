@@ -1,8 +1,9 @@
-import React from 'react'
+import React from 'react';
+
 
 const Footer = () => {
     return (
-        <footer className="bg-dark mt-3">
+        <footer id="Footer" className="bg-dark">
             <div className="container-fluid py-4 text-white">
                 <h3 className="text-center">© 2019 MARVEL</h3>
                 <hr />

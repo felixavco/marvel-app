@@ -1,0 +1,73 @@
+.active {
+ background: $marvel-color;
+ color: snow !important;
+}
+
+.side-nav-active {
+ left: -40px !important;
+}
+
+.bookmarks {
+ padding: 1rem 0 !important;
+}
+
+#Sidebar {
+ background: #373a3c;
+ width: 60%;
+ max-width: 16rem;
+ height: 100vh;
+ position: fixed;
+ z-index: 50;
+ top: 3.4rem;
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ transition: all 250ms ease-in-out;
+ left: -100%;
+
+ .sidebar-ul {
+  padding-left: none;
+  margin-bottom: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100%;
+  height: 40vh;
+  list-style: none;
+
+  li {
+   padding: 0;
+   width: 100%;
+   font-size: 1.3rem;
+   text-align: center;
+   color: $marvel-color;
+   transition: all 250ms linear;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-weight: 500;
+
+   &:hover {
+    color: snow;
+    cursor: pointer;
+    background: $marvel-color;
+   }
+
+   a {
+    padding: 1rem 0;
+    margin: none;
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: $marvel-color;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 250ms linear;
+
+    &:hover {
+     color: snow;
+    }
+   }
+  }
+ }
+}

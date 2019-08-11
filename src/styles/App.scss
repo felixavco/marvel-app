@@ -5,6 +5,22 @@ $medium: 1024px;
 $large: 1200px;
 $x-large: 1500px;
 
-@import './bootstrap.min.scss';
+$marvel-color: #ed1d24;
 
-@import '../components/characters/grid.scss';
+@import "./bootstrap.min.scss";
+
+@import "../components/layout/navbar/navbar.scss";
+
+@import "../components/layout/navbar/menuIcon/menuIcon.scss";
+
+@import "../components/layout/navbar/searchbar/searchbar.scss";
+
+@import "../components/layout/sidebar/sidebar.scss";
+
+@import "../components/layout/footer/footer.scss";
+
+
+
+#main {
+ padding: 54px 0 0 0;
+}

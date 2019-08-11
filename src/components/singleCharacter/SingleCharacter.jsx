@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import Spinner from '../commons/Spinner';
+import Spinner from '../commons/spinner/Spinner';
 import Helmet from 'react-helmet';
 import List from '../commons/list/List';
 //Redux
@@ -24,7 +24,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match }) => {
                 <Helmet>
                     <title>{name}</title>
                 </Helmet>
-                <div id="singleCharacter" className="container">
+                <div id="singleCharacter" className="container my-4">
                     <div className="row">
                         <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
                             <img src={thumbnail.path + "/portrait_uncanny." + thumbnail.extension} alt={name} className="thumbnail rounded" />
@@ -38,11 +38,11 @@ const SingleCharacter = ({ getSingleCharacter, character, match }) => {
                     </div>
                     <hr/>
                     <div className="row">
-                        <div className="col-12 col-md-6">
+                        <div className="col-12 col-md-6 px-5">
                             <h3 className="text-center font-weight-bold">Comics</h3>
                             <List items={comics.items} url="/comic" />
                         </div>
-                        <div className="col-12 col-md-6">
+                        <div className="col-12 col-md-6 px-5">
                             <h3 className="text-center font-weight-bold">Stories</h3>
                             <List items={stories.items} url="/story" />
                         </div>
