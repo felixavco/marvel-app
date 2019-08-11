@@ -3,11 +3,11 @@ import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
 //Redux
 import { connect } from 'react-redux';
-import { getCharacters } from '../../redux/actions/marvelActions';
+import { getComics } from '../../redux/actions/marvelActions';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-class CharactersList extends PureComponent {
+class ComicsList extends PureComponent {
     state = {
         list: [],
         limit: 20,
@@ -17,14 +17,14 @@ class CharactersList extends PureComponent {
     //Load Caracters
     componentDidMount = () => {
         const { limit, offset } = this.state;
-        this.props.getCharacters(limit, offset);
+        this.props.getComics(limit, offset);
 
     }
 
     // Set list with
     componentDidUpdate = (prevProps) => {
         if (prevProps !== this.props) {
-            this.setState({ list: [...this.state.list, ...this.props.characters] });
+            this.setState({ list: [...this.state.list, ...this.props.comics] });
         }
     }
 
@@ -34,9 +34,9 @@ class CharactersList extends PureComponent {
         this.setState({ offset: limit + offset });
         //Prevents dupliate fetch if offset is = 0 again;
         if(offset === 0) {
-            this.props.getCharacters(limit, (offset + limit));
+            this.props.getComics(limit, (offset + limit));
         } else {
-            this.props.getCharacters(limit, offset);
+            this.props.getComics(limit, offset);
         }
 
     }
@@ -58,7 +58,7 @@ class CharactersList extends PureComponent {
 
             content = (
                 <InfiniteScroll
-                    className="container grid my-5"
+                    className="container grid my-4"
                     dataLength={list.length}
                     next={this.fetchData}
                     hasMore={true}
@@ -74,9 +74,7 @@ class CharactersList extends PureComponent {
 }
 
 const mapStateToProps = (state) => ({
-    characters: state.marvel.characters,
+    comics: state.marvel.comics,
 });
 
-export default connect(mapStateToProps, { getCharacters })(CharactersList);
-
-
+export default connect(mapStateToProps, { getComics })(ComicsList);

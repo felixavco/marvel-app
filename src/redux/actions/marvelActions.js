@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { GET_CHARACTERS, GET_ERRORS, GET_ONE_CHARACTER, GET_ONE_COMIC, GET_ONE_STORY } from '../types';
+import { GET_ERRORS, GET_CHARACTERS, GET_ONE_CHARACTER, GET_COMICS, GET_ONE_COMIC, GET_STORIES, GET_ONE_STORY } from '../types';
 import { url } from '../../utils';
 
 /**
@@ -49,6 +49,29 @@ export const getSingleCharacter = (id) => (dispatch) => {
 
 /**
  * @Method: GET
+ * @Desc: Returns list of of all Comics
+ */
+export const getComics = (limit, offset) => (dispatch) => {
+
+    axios
+        .get(url('/comics', `&limit=${limit}&offset=${offset}`))
+        .then(res => {
+            dispatch({
+                type: GET_COMICS,
+                payload: res.data.data
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err
+            });
+        });
+
+}
+
+/**
+ * @Method: GET
  * @Desc: Returns a single Comic by its ID
  */
 export const getSingleComic = (id) => (dispatch) => {
@@ -67,6 +90,29 @@ export const getSingleComic = (id) => (dispatch) => {
                 payload: err
             });
         });
+}
+
+/**
+ * @Method: GET
+ * @Desc: Returns list of of all Comics
+ */
+export const getStories = (limit, offset) => (dispatch) => {
+
+    axios
+        .get(url('/stories', `&limit=${limit}&offset=${offset}`))
+        .then(res => {
+            dispatch({
+                type: GET_STORIES,
+                payload: res.data.data
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err
+            });
+        });
+
 }
 
 /**

@@ -10,8 +10,9 @@ const store = createStore(
 	rootReducer,
 	initialState,
 	compose(
-		applyMiddleware(...middleware),
-		NODE_ENV !== 'production' ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : null
+		applyMiddleware(...middleware)
+        //! CAMBIAR LATER
+		// NODE_ENV === 'production' ? window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__() : null
 	)
 );
 

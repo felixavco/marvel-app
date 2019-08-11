@@ -8,8 +8,8 @@ function MenuIcon({ toggleMenu, isMenuActive }) {
     return (
         <div
             id="menuIcon"
-            className={isMenuActive ? "change" : null}
-            onClick={() => toggleMenu(isMenuActive)}
+            className={isMenuActive ? "change" : null} //* "change" class styles on ./menuIcon.scss
+            onClick={() => toggleMenu(isMenuActive)} //* Sends new menu state to redux store
         >
             <div className="bar1"></div>
             <div className="bar2"></div>
