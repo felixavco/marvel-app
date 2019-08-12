@@ -1,21 +1,33 @@
-
 .favorites-active {
-    display: inline-block !important;
-    width: 75% !important;
-    right: -75% !important;
+ display: inline-block !important;
+ width: 75% !important;
+ right: -75% !important;
 }
 
 #Favorites {
-    transition: width 250ms linear;
-    background: #525252;
-    width: 0%;
-    height: 100%;
-    max-width: 15rem;
-    list-style: none;
-    position: absolute;
-    right: 0;
-    z-index: -10;
-    display: none;
+ transition: width 250ms linear;
+ background: #525252;
+ width: 0%;
+ height: 100%;
+ max-width: 15rem;
+ list-style: none;
+ position: absolute;
+ right: 0;
+ padding: 0;
+ z-index: -10;
+ display: none;
+
+ a {
+  text-decoration: none;
+  color: snow;
+  font-size: 1rem;
+  text-align: center;
+
+  li {
+    transition: all 250ms linear;
+   &:hover {
+       background: $marvel-color;
+   }
+  }
+ }
 }
-
-

@@ -9,19 +9,21 @@ import { setFavorite, removeFavorite } from '../../redux/actions/layoutActions';
 
 const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, removeFavorite, favorites }) => {
 
-    const [id] = useState(match.params.char_id);
-
     useEffect(() => {
-        getSingleCharacter(id);
-    }, [])
+        getSingleCharacter(match.params.char_id);
+    }, [match.params.char_id])
 
     let content = <Spinner />
 
     if (character) {
         const { id, name, thumbnail, description, comics, stories } = character;
 
-        console.log(favorites)
-        console.log(favorites.filter(fav => fav.id === id).length)
+        let favIcon;
+        if (favorites.filter(fav => fav.id === id).length > 0) {
+            favIcon = <i title="Remove from favorites" style={{cursor: 'pointer'}} onClick={() => removeFavorite(id)} className="fas fa-star"></i>
+        } else {
+            favIcon = <i title="Add to favorites" style={{cursor: 'pointer'}}  onClick={() => setFavorite({ name, id })} className="far fa-star"></i>
+        }
 
         content = (
             <Fragment>
@@ -37,11 +39,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
                             <div>
                                 <div className="d-flex justify-content-end mr-4">
                                     <h2>
-                                        {
-                                             favorites.filter(fav => fav.id === id).length > 0 ?
-                                            <i onClick={() => removeFavorite(id)} className="fas fa-star"></i> :
-                                            <i onClick={() => setFavorite({name, id})} className="far fa-star"></i>
-                                        }
+                                        {favIcon}
                                     </h2>
                                 </div>
                                 <h4 className="display-4 text-center">{name}</h4>
@@ -49,7 +47,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
                             </div>
                         </div>
                     </div>
-                    <hr/>
+                    <hr />
                     <div className="row">
                         <div className="col-12 col-md-6 px-5">
                             <h3 className="text-center font-weight-bold">Comics</h3>

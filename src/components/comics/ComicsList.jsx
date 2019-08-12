@@ -64,7 +64,7 @@ class ComicsList extends PureComponent {
                     hasMore={true}
                     loader={<div className="my-4"><Spinner fullHeigh={false} /></div>}
                 >
-                    {filteredList.map((item, i) => <Card key={i} data={item} />)}
+                    {filteredList.map((item, i) => <Card key={i} data={item} url='comic' />)}
                 </InfiniteScroll>
             );
 

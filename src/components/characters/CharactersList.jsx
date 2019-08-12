@@ -62,7 +62,7 @@ class CharactersList extends PureComponent {
                     dataLength={list.length}
                     next={this.fetchData}
                     hasMore={true}
-                    loader={<div className="my-4"><Spinner fullHeigh={false} /></div>}
+                    loader={<div className="my-"><Spinner fullHeigh={false} /></div>}
                 >
                     {filteredList.map((item, i) => <Card key={i} data={item} />)}
                 </InfiniteScroll>

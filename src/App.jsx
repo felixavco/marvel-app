@@ -4,6 +4,7 @@ import './styles/App.scss';
 //Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
+import { SET_FAB_CHAR } from './redux/types';
 
 //React Router
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -21,6 +22,14 @@ import SingleComic from './components/comics/SingleComic';
 
 import StoriesList from './components/stories/StroriesList';
 import SingleStory from './components/stories/SingleStory';
+
+//* if there are items in the favorites array. Set favorites to initial state 
+if(localStorage.favorites) {
+  store.dispatch({
+    type: SET_FAB_CHAR,
+    payload: JSON.parse(localStorage.getItem('favorites'))
+  })
+}
 
 
 const App = () => (

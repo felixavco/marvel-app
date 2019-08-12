@@ -1,0 +1,23 @@
+#Gallery {
+ background: red;
+ width: 100%;
+ height: 100%;
+ z-index: 200;
+ position: absolute;
+ top: 0;
+ left: 0;
+
+ #postGallery {
+  background: green;
+  width: 75%;
+  height: 100%;
+
+  .active {
+   opacity: 0.5;
+   img {
+    width: 100%;
+    height: 100%;
+   }
+  }
+ }
+}

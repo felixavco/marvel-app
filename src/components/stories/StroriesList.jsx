@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import Spinner from '../commons/spinner/Spinner';
-import Card from '../commons/card/Card';
+import StoryItem from './StoryItem';
 //Redux
 import { connect } from 'react-redux';
 import { getStories } from '../../redux/actions/marvelActions';
@@ -38,7 +38,7 @@ class StoriesList extends PureComponent {
 
             const Row = ({ index, style }) => (
                             <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
-                                {list[index].title}
+                                <StoryItem item={list[index]} />
                             </div>
                         );
 
@@ -47,7 +47,7 @@ class StoriesList extends PureComponent {
                     className="stories-list container"
                     height={window.innerHeight - 100}
                     itemCount={list.length}
-                    itemSize={50}
+                    itemSize={100}
                     width={window.innerWidth}
                 >
                     {Row}

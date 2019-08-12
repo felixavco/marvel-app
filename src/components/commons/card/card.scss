@@ -16,10 +16,11 @@
    position: relative;
    transition: all 250ms linear;
 
-   h4 {
+   h4,
+   h6 {
     position: absolute;
     color: #fff;
-    font-size: 1.9rem;
+    font-size: 1.6rem;
     text-shadow: 1px 1px 1px #000000;
     font-weight: 500;
     text-decoration: none;
@@ -28,10 +29,15 @@
     left: 3%;
    }
 
+   h6 {
+    font-size: 1rem;
+   }
+
    overflow: hidden;
    &:hover {
     box-shadow: 0px 0px 15px #333;
-    h4 {
+    h4,
+    h6 {
      bottom: 7%;
     }
    }

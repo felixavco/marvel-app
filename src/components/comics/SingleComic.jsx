@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Helmet from 'react-helmet';
 import Badges from '../commons/badges/Badges';
+import Gallery from './gallery/Gallery';
 
 //Redux
 import { connect } from 'react-redux';
@@ -18,7 +19,8 @@ const SingleComic = ({ comic, getSingleComic, match }) => {
     let content = <Spinner />
 
     if (comic) {
-        const { title, thumbnail, description, prices, stories, characters } = comic;
+        const { title, thumbnail, description, prices, stories, characters, images } = comic;
+
         content = (
             <Fragment>
                 <Helmet>
@@ -53,6 +55,7 @@ const SingleComic = ({ comic, getSingleComic, match }) => {
                         </div>
                     </div>
                 </div>
+                {/* <Gallery images={images} /> */}
             </Fragment>
         )
     }

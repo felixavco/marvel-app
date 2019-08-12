@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 //*Redux
 import { connect } from 'react-redux';
@@ -17,10 +17,10 @@ const Favorites = ({ isMenuActive, isSubMenuActive, favoritesArr, toggleMenu }) 
     let items
 
     if(favoritesArr && favoritesArr.length > 0) {
-        items = favoritesArr.map(({id, name} )=> (
-            <Link onClick={() => closeMenus()} to={`/character/${id}`}>
-                <li key={id} className="bookmarks">
-                    {name}
+        items = favoritesArr.map(({id, name})=> (
+            <Link key={id} to={`/character/${id}`} onClick={() => closeMenus()} >
+                <li className="bookmarks">
+                    {name.length > 15 ? name.substring(0,15) + '...' : name}
                 </li>
             </Link>
         ));
