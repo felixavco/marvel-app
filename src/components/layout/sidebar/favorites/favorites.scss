@@ -1,0 +1,21 @@
+
+.favorites-active {
+    display: inline-block !important;
+    width: 75% !important;
+    right: -75% !important;
+}
+
+#Favorites {
+    transition: width 250ms linear;
+    background: #525252;
+    width: 0%;
+    height: 100%;
+    max-width: 15rem;
+    list-style: none;
+    position: absolute;
+    right: 0;
+    z-index: -10;
+    display: none;
+}
+
+

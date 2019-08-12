@@ -7,6 +7,8 @@ $x-large: 1500px;
 
 $marvel-color: #ed1d24;
 
+$main: #373a3c;
+
 @import "./bootstrap.min.scss";
 
 @import "../components/layout/navbar/navbar.scss";
@@ -17,7 +19,10 @@ $marvel-color: #ed1d24;
 
 @import "../components/layout/sidebar/sidebar.scss";
 
+@import "../components/layout/sidebar/favorites/favorites.scss";
+
 @import "../components/layout/footer/footer.scss";
+
 
 @import "./grid";
 

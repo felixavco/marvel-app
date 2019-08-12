@@ -5,8 +5,9 @@ import List from '../commons/list/List';
 //Redux
 import { connect } from 'react-redux';
 import { getSingleCharacter } from '../../redux/actions/marvelActions';
+import { setFavorite, removeFavorite } from '../../redux/actions/layoutActions';
 
-const SingleCharacter = ({ getSingleCharacter, character, match }) => {
+const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, removeFavorite, favorites }) => {
 
     const [id] = useState(match.params.char_id);
 
@@ -17,7 +18,10 @@ const SingleCharacter = ({ getSingleCharacter, character, match }) => {
     let content = <Spinner />
 
     if (character) {
-        const { name, thumbnail, description, comics, stories } = character;
+        const { id, name, thumbnail, description, comics, stories } = character;
+
+        console.log(favorites)
+        console.log(favorites.filter(fav => fav.id === id).length)
 
         content = (
             <Fragment>
@@ -31,6 +35,15 @@ const SingleCharacter = ({ getSingleCharacter, character, match }) => {
                         </div>
                         <div className="col-12 col-md-8 d-flex align-items-center justify-content-center">
                             <div>
+                                <div className="d-flex justify-content-end mr-4">
+                                    <h2>
+                                        {
+                                             favorites.filter(fav => fav.id === id).length > 0 ?
+                                            <i onClick={() => removeFavorite(id)} className="fas fa-star"></i> :
+                                            <i onClick={() => setFavorite({name, id})} className="far fa-star"></i>
+                                        }
+                                    </h2>
+                                </div>
                                 <h4 className="display-4 text-center">{name}</h4>
                                 <p className="lead">{description.length > 0 ? description : "No description available..."}</p>
                             </div>
@@ -56,7 +69,8 @@ const SingleCharacter = ({ getSingleCharacter, character, match }) => {
 }
 
 const mapStateToProps = (state) => ({
-    character: state.marvel.singleCharacter
+    character: state.marvel.singleCharacter,
+    favorites: state.layout.favorites
 });
 
-export default connect(mapStateToProps, { getSingleCharacter })(SingleCharacter)
+export default connect(mapStateToProps, { getSingleCharacter, setFavorite, removeFavorite })(SingleCharacter)

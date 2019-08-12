@@ -1,6 +1,9 @@
 export const GET_ERRORS = 'GET_ERRORS';
 
 export const TOGGLE_NAV = 'TOGGLE_NAV';
+export const TOGGLE_SUB_MENU ='TOGGLE_SUB_MENU';
+
+export const SET_FAB_CHAR = 'SET_FAB_CHAR';
 
 export const GET_CHARACTERS = 'GET_CHARACTERS';
 export const GET_ONE_CHARACTER = 'GET_ONE_CHARACTER';

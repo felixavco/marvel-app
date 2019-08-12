@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
+import Favorites from './favorites/Favorites';
 //*Redux
 import { connect } from 'react-redux';
-import { toggleMenu } from '../../../redux/actions/layoutActions';
+import { toggleMenu, toggleSubMenu } from '../../../redux/actions/layoutActions';
 
 
 
-const Sidebar = ({ isMenuActive, toggleMenu }) => {
+const Sidebar = ({ isMenuActive, toggleMenu, isSubMenuActive, toggleSubMenu }) => {
 
     return (
         <nav id="Sidebar" className={isMenuActive ? "side-nav-active" : null}>
@@ -14,14 +15,16 @@ const Sidebar = ({ isMenuActive, toggleMenu }) => {
                 <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/">Characters</NavLink></li>
                 <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/comics">Comics</NavLink></li>
                 <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/stories">Stories</NavLink></li>
-                <li className="bookmarks">Favorites</li>
+                <li className="bookmarks" onClick={() => toggleSubMenu(isSubMenuActive)}>Favorites</li>
             </ul>
+            <Favorites/>
         </nav>
     )
 }
 
 const mapStateToProps = (state) => ({
-    isMenuActive: state.layout.isMenuActive
+    isMenuActive: state.layout.isMenuActive,
+    isSubMenuActive: state.layout.isSubMenuActive
 });
 
-export default connect(mapStateToProps, { toggleMenu })(Sidebar)
+export default connect(mapStateToProps, { toggleMenu, toggleSubMenu })(Sidebar)
