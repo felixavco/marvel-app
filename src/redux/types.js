@@ -5,6 +5,8 @@ export const TOGGLE_SUB_MENU ='TOGGLE_SUB_MENU';
 
 export const SET_FAB_CHAR = 'SET_FAB_CHAR';
 
+export const SET_CHAR_FILTER = 'SET_CHAR_FILTER';
+
 export const GET_CHARACTERS = 'GET_CHARACTERS';
 export const GET_ONE_CHARACTER = 'GET_ONE_CHARACTER';
 

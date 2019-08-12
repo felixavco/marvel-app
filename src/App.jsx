@@ -4,7 +4,7 @@ import './styles/App.scss';
 //Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { SET_FAB_CHAR } from './redux/types';
+import { SET_FAB_CHAR, SET_CHAR_FILTER } from './redux/types';
 
 //React Router
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
@@ -23,12 +23,24 @@ import SingleComic from './components/comics/SingleComic';
 import StoriesList from './components/stories/StroriesList';
 import SingleStory from './components/stories/SingleStory';
 
-//* if there are items in the favorites array. Set favorites to initial state 
+//* if there are items in the favorites array. Set favorites to initial state
 if(localStorage.favorites) {
   store.dispatch({
-    type: SET_FAB_CHAR,
-    payload: JSON.parse(localStorage.getItem('favorites'))
-  })
+        type: SET_FAB_CHAR,
+        payload: JSON.parse(localStorage.favorites)
+  });
+}
+
+//* If preferences are not set, set the default preferences at the first page load.
+if(!localStorage.preferences) {
+    //* Default Preferences [charactersFilter:boolean, ] */
+    const preferences = [true]
+    localStorage.setItem('preferences', JSON.stringify(preferences));
+
+    store.dispatch({
+        type: SET_CHAR_FILTER,
+        payload: JSON.parse(localStorage.preferences)
+  });
 }
 
 

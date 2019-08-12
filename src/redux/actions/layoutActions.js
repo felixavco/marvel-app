@@ -1,4 +1,4 @@
-import { TOGGLE_NAV, TOGGLE_SUB_MENU, SET_FAB_CHAR } from '../types';
+import { TOGGLE_NAV, TOGGLE_SUB_MENU, SET_FAB_CHAR, SET_CHAR_FILTER } from '../types';
 
 export const toggleMenu = (isActive) => (dispatch) => {
     dispatch({
@@ -52,4 +52,21 @@ export const removeFavorite = (id) => (dispatch) => {
         type: SET_FAB_CHAR,
         payload: JSON.parse(localStorage.getItem('favorites'))
     });
+}
+
+export const setCharFilter = (filterState) => (dispatch) => {
+    const LS = localStorage.preferences
+
+    if(LS) {
+        //Current preferences values
+        let preferences = JSON.parse(LS);
+        //Change value of the Character filter
+        preferences[0] = !filterState;
+        localStorage.setItem('preferences', preferences);
+
+        dispatch({
+            type: SET_CHAR_FILTER,
+            payload: JSON.parse(localStorage.preferences)
+        });
+    }
 }

@@ -1,9 +1,10 @@
-import { TOGGLE_NAV, TOGGLE_SUB_MENU, SET_FAB_CHAR } from '../types';
+import { TOGGLE_NAV, TOGGLE_SUB_MENU, SET_FAB_CHAR, SET_CHAR_FILTER } from '../types';
 
 const initialState = {
     isMenuActive: false,
     isSubMenuActive: false,
-    favorites: []
+    favorites: [],
+    characterFilter: true
 }
 
 export default (state = initialState, action) => {
@@ -25,6 +26,12 @@ export default (state = initialState, action) => {
              return {
                 ...state,
                 favorites: action.payload
+            }
+
+        case SET_CHAR_FILTER:
+             return {
+                ...state,
+                characterFilter: action.payload
             }
 
         default:

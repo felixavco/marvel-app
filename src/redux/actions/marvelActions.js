@@ -9,7 +9,7 @@ import { url } from '../../utils';
 export const getCharacters = (limit, offset) => (dispatch) => {
 
     axios
-        .get(url('/characters', `&limit=${limit}&offset=${offset}`))
+        .get(url('/characters', `&limit=${limit}&offset=${offset}&orderBy=-name`))
         .then(res => {
             dispatch({
                 type: GET_CHARACTERS,
