@@ -1,21 +1,23 @@
-#Base image 
-FROM node
+
+# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
+FROM tiangolo/node-frontend:10 as build-stage
 
 LABEL author="Felix Avelar"
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
-COPY package*.json ./
-
-COPY . .
+COPY package*.json /app/
 
 RUN npm install
 
+COPY ./ /app/
+
 RUN npm run build
 
-ENV NODE_ENV production
-ENV PORT 80
+# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
+FROM nginx:1.15
 
-EXPOSE 80
+COPY --from=build-stage /app/build/ /usr/share/nginx/html
 
-CMD [ "npm", "start" ]
+# Copy the default nginx.conf provided by tiangolo/node-frontend
+COPY --from=build-stage /nginx.conf /etc/nginx/conf.d/default.conf

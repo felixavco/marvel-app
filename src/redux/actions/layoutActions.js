@@ -62,11 +62,11 @@ export const setCharFilter = (filterState) => (dispatch) => {
         let preferences = JSON.parse(LS);
         //Change value of the Character filter
         preferences[0] = !filterState;
-        localStorage.setItem('preferences', preferences);
+        localStorage.setItem('preferences', JSON.stringify(preferences));
 
         dispatch({
             type: SET_CHAR_FILTER,
-            payload: JSON.parse(localStorage.preferences)
+            payload: JSON.parse(localStorage.preferences)[0]
         });
     }
 }

@@ -34,12 +34,12 @@ if(localStorage.favorites) {
 //* If preferences are not set, set the default preferences at the first page load.
 if(!localStorage.preferences) {
     //* Default Preferences [charactersFilter:boolean, ] */
-    const preferences = [true]
+    const preferences = [false, false, true, false]
     localStorage.setItem('preferences', JSON.stringify(preferences));
 
     store.dispatch({
         type: SET_CHAR_FILTER,
-        payload: JSON.parse(localStorage.preferences)
+        payload: JSON.parse(localStorage.preferences)[0]
   });
 }
 

@@ -6,10 +6,10 @@ import { url } from '../../utils';
  * @Method: GET
  * @Desc: Returns list of of all Characters
  */
-export const getCharacters = (limit, offset) => (dispatch) => {
+export const getCharacters = (limit, offset, filter=true) => (dispatch) => {
 
     axios
-        .get(url('/characters', `&limit=${limit}&offset=${offset}&orderBy=-name`))
+        .get(url('/characters', `&limit=${limit}&offset=${offset}&orderBy=${filter ? 'name' : '-name'}`))
         .then(res => {
             dispatch({
                 type: GET_CHARACTERS,

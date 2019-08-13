@@ -15,10 +15,11 @@ class CharactersList extends Component {
         offset: 0
     }
 
-    //Load Caracters
+    //Load Caracters on initial render
     componentDidMount = () => {
         const { limit, offset } = this.state;
-        this.props.getCharacters(limit, offset);
+        const { characterFilter } = this.props;
+        this.props.getCharacters(limit, offset, characterFilter);
 
     }
 
@@ -27,17 +28,24 @@ class CharactersList extends Component {
         if (prevProps !== this.props) {
             this.setState({ list: [...this.state.list, ...this.props.characters] });
         }
+
+        if (prevProps.characterFilter !== this.props.characterFilter) {
+            const { limit, offset } = this.state;
+            const { characterFilter } = this.props;
+            this.props.getCharacters(limit, offset, characterFilter);
+        }
     }
 
     //Fetchs new items
     fetchData = () => {
         const { limit, offset } = this.state;
+        const { characterFilter } = this.props;
         this.setState({ offset: limit + offset });
         //Prevents dupliate fetch if offset is = 0 again;
-        if(offset === 0) {
-            this.props.getCharacters(limit, (offset + limit));
+        if (offset === 0) {
+            this.props.getCharacters(limit, (offset + limit), characterFilter);
         } else {
-            this.props.getCharacters(limit, offset);
+            this.props.getCharacters(limit, offset, characterFilter);
         }
 
     }
@@ -50,21 +58,29 @@ class CharactersList extends Component {
 
         if (list.length > 0) {
 
-            //* Removing duplicates from list
+            //* Removing duplicate objects from list
             const seen = new Set();
             const filteredList = list.filter(el => {
                 const duplicate = seen.has(el.id);
                 seen.add(el.id);
                 return !duplicate;
             });
-                // <i class="fas fa-sort-alpha-down-alt"></i>
+
+            // let finterIcon =  characterFilter ? 
+            //                     (<i className="fas fa-sort-alpha-down"></i>) : 
+            //                     (<i className="fas fa-sort-alpha-down-alt"></i>);
+
+            let finterIcon = characterFilter ?
+                "A-Z" :
+                "Z-A";
+
             content = (
                 <Fragment>
-                <div className="container">
-                    <h3 onClick={() => setCharFilter(characterFilter)} style={{cursor: 'pointer'}} className="text-center my-2">
-                        Filter&nbsp;&nbsp;<i className="fas fa-sort-alpha-down"></i>
-                    </h3>
-                </div>
+                    <div className="container">
+                        <h3 onClick={() => setCharFilter(characterFilter)} style={{ cursor: 'pointer' }} className="text-center my-2">
+                            Filter&nbsp;&nbsp; {finterIcon}
+                        </h3>
+                    </div>
                     <InfiniteScroll
                         className="container grid mb-5"
                         dataLength={list.length}
