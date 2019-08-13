@@ -1,12 +1,16 @@
 import React from 'react'
 
-const Breadcrumbs = () => {
+const Breadcrumbs = ({elements, current}) => {
+
+    const items = elements.map((el, i) => (
+        <li class="breadcrumb-item"><a href={el.path}>{ el.name }</a></li>
+    ))
+
     return (
         <nav aria-label="breadcrumb">
             <ol class="breadcrumb">
-                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item"><a href="#">Library</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Data</li>
+                { items }
+                <li class="breadcrumb-item " aria-current="page">{current}</li>
             </ol>
         </nav>
     )

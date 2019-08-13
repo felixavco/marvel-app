@@ -25,15 +25,16 @@ class CharactersList extends Component {
 
     // Set list with
     componentDidUpdate = (prevProps) => {
-        if (prevProps !== this.props) {
+        if (prevProps.characters !== this.props.characters) {
             this.setState({ list: [...this.state.list, ...this.props.characters] });
         }
 
-        if (prevProps.characterFilter !== this.props.characterFilter) {
-            const { limit, offset } = this.state;
-            const { characterFilter } = this.props;
-            this.props.getCharacters(limit, offset, characterFilter);
-        }
+        // if (prevProps.characterFilter !== this.props.characterFilter) {
+        //     const { limit, offset } = this.state;
+        //     const { characterFilter } = this.props;
+        //     this.props.getCharacters(limit, offset, characterFilter);
+        //     this.setState({ list: this.props.characters });
+        // }
     }
 
     //Fetchs new items
@@ -66,23 +67,19 @@ class CharactersList extends Component {
                 return !duplicate;
             });
 
-            // let finterIcon =  characterFilter ? 
-            //                     (<i className="fas fa-sort-alpha-down"></i>) : 
-            //                     (<i className="fas fa-sort-alpha-down-alt"></i>);
-
             let finterIcon = characterFilter ?
-                "A-Z" :
-                "Z-A";
+                            (<i className="fas fa-sort-alpha-down"></i>) :
+                            (<i className="fas fa-sort-alpha-down-alt"></i>); 
 
             content = (
                 <Fragment>
-                    <div className="container">
+                    {/* <div className="container">
                         <h3 onClick={() => setCharFilter(characterFilter)} style={{ cursor: 'pointer' }} className="text-center my-2">
                             Filter&nbsp;&nbsp; {finterIcon}
                         </h3>
-                    </div>
+                    </div> */}
                     <InfiniteScroll
-                        className="container grid mb-5"
+                        className="container grid mt-4 mb-5"
                         dataLength={list.length}
                         next={this.fetchData}
                         hasMore={true}

@@ -1,44 +1,80 @@
 
-import React from 'react';
-import emtpyImage from '../../../img/empty-image.png';
+import React, { useState, Fragment } from 'react';
+import emptyImg from '../../../img/empty-image.png'
 
-const Gallery = ({ images }) => {
-    let indicators = images.map((image, i) => (
-        <li key={i} data-target="#postGallery" data-slide-to="0" className={i === 0 ? 'active' : null} />
+const Gallery = ({ images, isActive, setIsActive }) => {
+
+    const [currentImg, setCurrentImg] = useState(0);
+    const [total] = useState(images.length);
+
+    const nextImg = () => {
+        if (currentImg >= total - 1) {
+            setCurrentImg(0)
+        } else {
+            setCurrentImg(currentImg + 1)
+        }
+    }
+
+    const prevImg = () => {
+        if (currentImg === 0) {
+            setCurrentImg(total - 1)
+        } else {
+            setCurrentImg(currentImg - 1)
+        }
+    }
+
+    let indicators = images.map((img, i) => (
+        <li key={i} data-target="#postGallery" data-slide-to="0" className={i === currentImg ? 'active-img' : null} >
+            <i className="far fa-dot-circle"></i>
+        </li>
     ));
 
-    let gallery_Images;
+    let initialImage = (
+        <Fragment>
+            <img src={emptyImg} alt="Emtpy-image" />
+
+            <ul id="indicators">
+                <li>No images available</li>
+            </ul>
+        </Fragment>
+    )
 
     if (images.length > 0) {
-        gallery_Images = images.map((image, i) => (
-            <div key={i} className={`carousel-item ${i === 0 ? 'active' : null}`}>
-                <img src={image.path + "." + image.extension} alt={image} />
-            </div>
-        ));
-    } else {
-        gallery_Images = (
-            <div className="carousel-item active">
-                <img src={emtpyImage} alt="Empty" />
-            </div>
-        );
+        initialImage = (
+            <Fragment>
+                <img
+                    className="current-img"
+                    src={images[currentImg].path + "." + images[currentImg].extension || emptyImg}
+                    alt={`comic-gallery${currentImg}`}
+                />
+
+                <ul id="indicators">
+                    {indicators}
+                </ul>
+            </Fragment>
+        )
     }
 
     return (
-        <div id="Gallery">
-            <div id="postGallery" className="Gallery slide mb-3" data-ride="carousel">
-                <ol className="carousel-indicators">{indicators}</ol>
+        <div id="Gallery" className={isActive ? "Gallery-active" : null}>
+            <div className="container">
+                <div className="row mt-1">
+                    <div className="col-1 d-flex justify-content-center align-items-center">
+                        <i onClick={() => prevImg()} id="btn-prev" className="fas fa-chevron-left"></i>
+                    </div>
 
-                <div className="carousel-inner">{gallery_Images}</div>
+                    <div className="col-10 text-center">
+                        {initialImage}
 
-                <a className="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
-                    <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-                    <span className="sr-only">Previous</span>
-                </a>
-                <a className="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
-                    <span className="carousel-control-next-icon" aria-hidden="true"></span>
-                    <span className="sr-only">Next</span>
-                </a>
+                    </div>
+
+                    <div className="col-1 d-flex justify-content-center align-items-center">
+                        <i onClick={() => setIsActive(false)} id="btn-close-gallery" className="far fa-times-circle"></i>
+                        <i onClick={() => nextImg()} id="btn-next" className="fas fa-chevron-right"></i>
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 };

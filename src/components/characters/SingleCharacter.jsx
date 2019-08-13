@@ -2,6 +2,7 @@ import React, { useEffect, useState, Fragment } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Helmet from 'react-helmet';
 import List from '../commons/list/List';
+import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs'
 //Redux
 import { connect } from 'react-redux';
 import { getSingleCharacter } from '../../redux/actions/marvelActions';
@@ -20,9 +21,9 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
 
         let favIcon;
         if (favorites.filter(fav => fav.id === id).length > 0) {
-            favIcon = <i title="Remove from favorites" style={{cursor: 'pointer'}} onClick={() => removeFavorite(id)} className="fas fa-star"></i>
+            favIcon = <i title="Remove from favorites" style={{ cursor: 'pointer' }} onClick={() => removeFavorite(id)} className="fas fa-star"></i>
         } else {
-            favIcon = <i title="Add to favorites" style={{cursor: 'pointer'}}  onClick={() => setFavorite({ name, id })} className="far fa-star"></i>
+            favIcon = <i title="Add to favorites" style={{ cursor: 'pointer' }} onClick={() => setFavorite({ name, id })} className="far fa-star"></i>
         }
 
         content = (
@@ -30,7 +31,9 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
                 <Helmet>
                     <title>{name}</title>
                 </Helmet>
-                <div id="singleCharacter" className="container my-4">
+
+                <div id="singleCharacter" className="container mb-4">
+                    <Breadcrumbs elements={[{ path: '/', name: 'Characters' }]} current={name} />
                     <div className="row">
                         <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
                             <img src={thumbnail.path + "/portrait_uncanny." + thumbnail.extension} alt={name} className="thumbnail rounded" />
