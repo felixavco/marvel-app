@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Component } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
 import { isEmpty } from '../../utils';
@@ -29,13 +29,6 @@ class CharactersList extends Component {
         if (prevProps.characters !== this.props.characters) {
             this.setState({ list: [...this.state.list, ...this.props.characters] });
         }
-
-        // if (prevProps.characterFilter !== this.props.characterFilter) {
-        //     const { limit, offset } = this.state;
-        //     const { characterFilter } = this.props;
-        //     this.props.getCharacters(limit, offset, characterFilter);
-        //     this.setState({ list: this.props.characters });
-        // }
     }
 
     //Fetchs new items
@@ -56,7 +49,7 @@ class CharactersList extends Component {
         let content = <Spinner />
 
         const { list } = this.state;
-        const { setCharFilter, characterFilter, errors, history } = this.props;
+        const { errors, history } = this.props;
 
         //* Check if there are gobal errors, if so redirect to Errors page 
         if(!isEmpty(errors)) {
@@ -73,17 +66,8 @@ class CharactersList extends Component {
                 return !duplicate;
             });
 
-            // let finterIcon = characterFilter ?
-            //                 (<i className="fas fa-sort-alpha-down"></i>) :
-            //                 (<i className="fas fa-sort-alpha-down-alt"></i>); 
 
             content = (
-                <Fragment>
-                    {/* <div className="container">
-                        <h3 onClick={() => setCharFilter(characterFilter)} style={{ cursor: 'pointer' }} className="text-center my-2">
-                            Filter&nbsp;&nbsp; {finterIcon}
-                        </h3>
-                    </div> */}
                     <InfiniteScroll
                         className="container grid mt-4 mb-5"
                         dataLength={list.length}
@@ -93,7 +77,6 @@ class CharactersList extends Component {
                     >
                         {filteredList.map((item, i) => <Card key={i} data={item} />)}
                     </InfiniteScroll>
-                </Fragment>
             );
 
         }
@@ -103,7 +86,6 @@ class CharactersList extends Component {
 
 const mapStateToProps = (state) => ({
     characters: state.marvel.characters,
-    characterFilter: state.layout.characterFilter, 
     errors: state.errors
 });
 
