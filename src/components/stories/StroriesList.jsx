@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import StoryItem from './StoryItem';
+import { isEmpty } from '../../utils';
 //Redux
 import { connect } from 'react-redux';
 import { getStories } from '../../redux/actions/marvelActions';
@@ -32,15 +33,22 @@ class StoriesList extends PureComponent {
     render() {
         let content = <Spinner />
 
+        const { errors, history } = this.props;
+
+        //* Check if there are gobal errors, if so redirect to Errors page 
+        if (!isEmpty(errors)) {
+            history.push('/error-page');
+        }
+
         const { list } = this.state;
 
         if (list.length > 0) {
 
             const Row = ({ index, style }) => (
-                            <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
-                                <StoryItem item={list[index]} />
-                            </div>
-                        );
+                <div className={index % 2 ? "ListItemOdd" : "ListItemEven"} style={style}>
+                    <StoryItem item={list[index]} />
+                </div>
+            );
 
             content = (
                 <List
@@ -61,6 +69,7 @@ class StoriesList extends PureComponent {
 
 const mapStateToProps = (state) => ({
     stories: state.marvel.stories,
+    errors: state.errors
 });
 
 export default connect(mapStateToProps, { getStories })(StoriesList);

@@ -4,13 +4,15 @@ import Helmet from 'react-helmet';
 import Badges from '../commons/badges/Badges';
 import Gallery from './gallery/Gallery';
 import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
+import { isEmpty } from '../../utils';
 
 //Redux
 import { connect } from 'react-redux';
 import { getSingleComic } from '../../redux/actions/marvelActions';
+import { stat } from 'fs';
 
 
-const SingleComic = ({ comic, getSingleComic, match }) => {
+const SingleComic = ({ comic, getSingleComic, match, errors, history }) => {
     const [id] = useState(match.params.comic_id);
     const [isGalleryActive, setIsGalleryActive] = useState(false);
 
@@ -20,6 +22,11 @@ const SingleComic = ({ comic, getSingleComic, match }) => {
     }, [])
 
     let content = <Spinner />
+
+      //* Check if there are gobal errors, if so redirect to Errors page 
+      if (!isEmpty(errors)) {
+        history.push('/error-page');
+    }
 
     if (comic) {
         const { title, thumbnail, description, prices, stories, characters, images } = comic;
@@ -88,7 +95,8 @@ const SingleComic = ({ comic, getSingleComic, match }) => {
 }
 
 const mapStateToProps = (state) => ({
-    comic: state.marvel.singleComic
+    comic: state.marvel.singleComic, 
+    errors: state.errors
 });
 
 export default connect(mapStateToProps, { getSingleComic })(SingleComic);

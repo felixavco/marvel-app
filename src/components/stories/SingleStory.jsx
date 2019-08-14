@@ -2,14 +2,14 @@ import React, { useEffect, useState, Fragment } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Helmet from 'react-helmet';
 import Badges from '../commons/badges/Badges';
-
+import { isEmpty } from '../../utils';
 
 //Redux
 import { connect } from 'react-redux';
 import { getSingleStory } from '../../redux/actions/marvelActions';
 
 
-const SingleStory = ({ story, getSingleStory, match }) => {
+const SingleStory = ({ story, getSingleStory, match, errors, history }) => {
     const [id] = useState(match.params.story_id);
 
     useEffect(() => {
@@ -17,6 +17,11 @@ const SingleStory = ({ story, getSingleStory, match }) => {
     }, [])
 
     let content = <Spinner />
+
+    //* Check if there are gobal errors, if so redirect to Errors page 
+    if (!isEmpty(errors)) {
+        history.push('/error-page');
+    }
 
     if (story) {
         const { title, description, creators, characters, comics } = story;
@@ -57,7 +62,8 @@ const SingleStory = ({ story, getSingleStory, match }) => {
 }
 
 const mapStateToProps = (state) => ({
-    story: state.marvel.singleStory
+    story: state.marvel.singleStory, 
+    errors: state.errors
 });
 
 export default connect(mapStateToProps, { getSingleStory })(SingleStory);

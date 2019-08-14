@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
+import { isEmpty } from '../../utils';
 //Redux
 import { connect } from 'react-redux';
 import { getComics } from '../../redux/actions/marvelActions';
@@ -33,7 +34,7 @@ class ComicsList extends PureComponent {
         const { limit, offset } = this.state;
         this.setState({ offset: limit + offset });
         //Prevents dupliate fetch if offset is = 0 again;
-        if(offset === 0) {
+        if (offset === 0) {
             this.props.getComics(limit, (offset + limit));
         } else {
             this.props.getComics(limit, offset);
@@ -43,6 +44,13 @@ class ComicsList extends PureComponent {
 
     render() {
         let content = <Spinner />
+
+        const { errors, history } = this.props;
+
+        //* Check if there are gobal errors, if so redirect to Errors page 
+        if (!isEmpty(errors)) {
+            history.push('/error-page');
+        }
 
         const { list } = this.state;
 
@@ -75,6 +83,7 @@ class ComicsList extends PureComponent {
 
 const mapStateToProps = (state) => ({
     comics: state.marvel.comics,
+    errors: state.errors
 });
 
 export default connect(mapStateToProps, { getComics })(ComicsList);

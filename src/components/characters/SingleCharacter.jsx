@@ -1,20 +1,26 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Helmet from 'react-helmet';
 import List from '../commons/list/List';
-import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs'
+import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
+import { isEmpty } from '../../utils';
 //Redux
 import { connect } from 'react-redux';
 import { getSingleCharacter } from '../../redux/actions/marvelActions';
 import { setFavorite, removeFavorite } from '../../redux/actions/layoutActions';
 
-const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, removeFavorite, favorites }) => {
+const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, removeFavorite, favorites, history, errors }) => {
 
     useEffect(() => {
         getSingleCharacter(match.params.char_id);
     }, [match.params.char_id])
 
     let content = <Spinner />
+
+    //* Check if there are gobal errors, if so redirect to Errors page 
+    if(!isEmpty(errors)) {
+        history.push('/error-page');
+    }
 
     if (character) {
         const { id, name, thumbnail, description, comics, stories } = character;
@@ -71,7 +77,8 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
 
 const mapStateToProps = (state) => ({
     character: state.marvel.singleCharacter,
-    favorites: state.layout.favorites
+    favorites: state.layout.favorites, 
+    errors: state.errors
 });
 
 export default connect(mapStateToProps, { getSingleCharacter, setFavorite, removeFavorite })(SingleCharacter)

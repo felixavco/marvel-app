@@ -31,7 +31,7 @@ const Gallery = ({ images, isActive, setIsActive }) => {
 
     let initialImage = (
         <Fragment>
-            <img src={emptyImg} alt="Emtpy-image" />
+            <img src={emptyImg} alt="Emtpy" />
 
             <ul id="indicators">
                 <li>No images available</li>

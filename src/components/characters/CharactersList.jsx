@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
+import { isEmpty } from '../../utils';
 //Redux
 import { connect } from 'react-redux';
 import { getCharacters } from '../../redux/actions/marvelActions';
@@ -55,7 +56,12 @@ class CharactersList extends Component {
         let content = <Spinner />
 
         const { list } = this.state;
-        const { setCharFilter, characterFilter } = this.props;
+        const { setCharFilter, characterFilter, errors, history } = this.props;
+
+        //* Check if there are gobal errors, if so redirect to Errors page 
+        if(!isEmpty(errors)) {
+            history.push('/error-page');
+        }
 
         if (list.length > 0) {
 
@@ -67,9 +73,9 @@ class CharactersList extends Component {
                 return !duplicate;
             });
 
-            let finterIcon = characterFilter ?
-                            (<i className="fas fa-sort-alpha-down"></i>) :
-                            (<i className="fas fa-sort-alpha-down-alt"></i>); 
+            // let finterIcon = characterFilter ?
+            //                 (<i className="fas fa-sort-alpha-down"></i>) :
+            //                 (<i className="fas fa-sort-alpha-down-alt"></i>); 
 
             content = (
                 <Fragment>
@@ -97,7 +103,8 @@ class CharactersList extends Component {
 
 const mapStateToProps = (state) => ({
     characters: state.marvel.characters,
-    characterFilter: state.layout.characterFilter
+    characterFilter: state.layout.characterFilter, 
+    errors: state.errors
 });
 
 export default connect(mapStateToProps, { getCharacters, setCharFilter })(CharactersList);
