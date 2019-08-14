@@ -52,10 +52,10 @@ class StoriesList extends PureComponent {
 
             content = (
                 <List
-                    className="stories-list container"
+                    className="stories-list container my-4"
                     height={window.innerHeight - 100}
                     itemCount={list.length}
-                    itemSize={100}
+                    itemSize={50}
                     width={window.innerWidth}
                 >
                     {Row}
