@@ -14,7 +14,7 @@ const SingleStory = ({ story, getSingleStory, match, errors, history }) => {
 
     useEffect(() => {
         getSingleStory(id);
-    }, [])
+    }, [match.params.story_id]);
 
     let content = <Spinner />
 

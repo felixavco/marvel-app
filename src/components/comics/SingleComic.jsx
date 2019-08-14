@@ -9,7 +9,6 @@ import { isEmpty } from '../../utils';
 //Redux
 import { connect } from 'react-redux';
 import { getSingleComic } from '../../redux/actions/marvelActions';
-import { stat } from 'fs';
 
 
 const SingleComic = ({ comic, getSingleComic, match, errors, history }) => {
@@ -19,7 +18,7 @@ const SingleComic = ({ comic, getSingleComic, match, errors, history }) => {
 
     useEffect(() => {
         getSingleComic(id);
-    }, [])
+    }, [match.params.comic_id])
 
     let content = <Spinner />
 
