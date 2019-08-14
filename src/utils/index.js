@@ -1,8 +1,11 @@
+const publicKey = '9b5e63f935b69c8f68b5cedf54c97a81'
+const hash = '2e8ed0d1737174b673ae2b52c756e801';
+
 export const url = (urlpath, query = '') => `
 https://gateway.marvel.com/v1/public
 ${urlpath}
-?apikey=15e25fa93da9f3bd048534ec2c142957
-&hash=97d2ce6f2a73c660d7aafd0e017acb42
+?apikey=${publicKey}
+&hash=${hash}
 &ts=1
 ${query}
 `;
