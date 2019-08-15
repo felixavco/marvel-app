@@ -13,6 +13,7 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-d
 import NavBar from './components/layout/navbar/NavBar';
 import Sidebar from './components/layout/sidebar/Sidebar';
 import Footer from './components/layout/footer/Footer';
+import Home from './components/layout/home/Home';
 
 import CharactersList from './components/characters/CharactersList';
 import SingleCharacter from './components/characters/SingleCharacter';
@@ -54,7 +55,7 @@ const App = () => (
       <Sidebar />
       <div id="main" className="container-fluid">
         <Switch>
-          <Route exact path="/" component={CharactersList} />
+          <Route exact path="/" component={Home} />
           <Route exact path="/characters" component={CharactersList} />
           <Route exact path="/comics" component={ComicsList} />
           <Route exact path="/stories" component={StoriesList} />

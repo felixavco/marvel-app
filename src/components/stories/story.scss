@@ -1,29 +1,29 @@
 .history-item {
-    a {
-        text-decoration: none; 
-        font-size: 1.1rem;
-        color: snow;
-        font-weight: 500;
-        text-shadow: 1px 1px 1px #000;
-       
-    }
+ a {
+  text-decoration: none;
+  font-size: 1.1rem;
+  color: snow;
+  font-weight: 500;
+  text-shadow: 1px 1px 1px #000;
+ }
 }
 
-.ListItemOdd, .ListItemEven {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 250ms ease-in-out;
+.ListItemOdd,
+.ListItemEven {
+ display: flex;
+ justify-content: center;
+ align-items: center;
+ transition: all 250ms ease-in-out;
 
-    &:hover {
-        transform: scale(0.98);
-    }
+ &:hover {
+  transform: scale(0.98);
+ }
 }
 
 .ListItemOdd {
-    background: rgba($color: $marvel-color, $alpha: 1);
+ background: rgba($color: $marvel-color, $alpha: 1);
 }
 
 .ListItemEven {
-    background: rgba($color: $main, $alpha: 1);
+ background: rgba($color: $main, $alpha: 1);
 }

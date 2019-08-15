@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
 import { isEmpty } from '../../utils';
+import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
+
 //Redux
 import { connect } from 'react-redux';
 import { getCharacters } from '../../redux/actions/marvelActions';
@@ -68,7 +70,9 @@ class CharactersList extends Component {
 
 
             content = (
-                    <InfiniteScroll
+                <Fragment>
+                     <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={characters} />
+                     <InfiniteScroll
                         className="container grid mt-4 mb-5"
                         dataLength={list.length}
                         next={this.fetchData}
@@ -77,6 +81,8 @@ class CharactersList extends Component {
                     >
                         {filteredList.map((item, i) => <Card key={i} data={item} />)}
                     </InfiniteScroll>
+                </Fragment>
+                   
             );
 
         }

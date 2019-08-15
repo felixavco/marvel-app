@@ -39,7 +39,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
                 </Helmet>
 
                 <div id="singleCharacter" className="container mb-4">
-                    <Breadcrumbs elements={[{ path: '/', name: 'Characters' }]} current={name} />
+                    <Breadcrumbs elements={[{ path: '/', name: 'home' },{ path: '/characters', name: 'Characters' }]} current={name} />
                     <div className="row">
                         <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
                             <img src={thumbnail.path + "/portrait_uncanny." + thumbnail.extension} alt={name} className="thumbnail rounded" />
