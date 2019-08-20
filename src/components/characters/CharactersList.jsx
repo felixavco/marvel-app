@@ -12,32 +12,39 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 const CharactersList = ({ getCharacters, setCharFilter, characters, errors, history, characterFilter }) => {
 
+    const [trigger, setTrigger] = useState(!characterFilter)
     const [list, setList] = useState([]);
-    const [limit] = useState(20);
+    const [limit] = useState(4);
     const [offset, setOffset] = useState(0);
-
-    console.log(characterFilter);
 
     //* Component Did Mount
     useEffect(() => {
         getCharacters(limit, offset, characterFilter);
-        setList([]);
-        if (characters) {
-            setList(characters);
-        }
+        setTrigger(!characterFilter);
     }, [characterFilter]);
 
     //* Component Did Update
     useEffect(() => {
         if (characters) {
-            setList([...list, ...characters]);
+           resetList();
         }
     }, [characters]);
+
+
+    const resetList = () => {
+        if(trigger) {
+            setList([...list, ...characters]);
+            console.log("No changes", "PREV ", "CURRENT ", characterFilter)
+        } else {
+            setList(characters);
+            console.log("YES changes")
+        }
+    }
 
     const fetchData = () => {
         setOffset(limit + offset);
         if (offset === 0) {
-            getCharacters(limit, (offset + limit));
+            getCharacters(limit, (offset + limit), characterFilter);
         } else {
             getCharacters(limit, offset, characterFilter);
         }
@@ -45,12 +52,12 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
 
     let content = <Spinner />
 
-    //* Check if there are gobal errors, if so redirect to Errors page 
+    //* Check if there are gobal errors, if so redirect to Errors page
     if (!isEmpty(errors)) {
         history.push('/error-page');
     }
 
-    if (list.length > 0) {
+    if (list && list.length > 0) {
         //* Removing duplicate objects from list
         const seen = new Set();
         const filteredList = list.filter(el => {
@@ -63,6 +70,9 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
             <Fragment>
                 <div style={{ background: '#E9ECEF' }} className="container d-flex justify-content-between align-items-center">
                     <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={'characters'} />
+                    {/*!***********BORRAR*********** */}
+                    { characterFilter ? "A-Z" : "Z-A" }
+                    {/*!***********BORRAR*********** */}
                     <div>
                         <h5
                             onClick={() => setCharFilter(characterFilter)}

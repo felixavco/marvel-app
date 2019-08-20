@@ -14,7 +14,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 class CharactersListClass extends Component {
     state = {
         list: [],
-        limit: 20,
+        limit: 4,
         offset: 0
     }
 
@@ -23,7 +23,6 @@ class CharactersListClass extends Component {
         const { limit, offset } = this.state;
         const { characterFilter } = this.props;
         this.props.getCharacters(limit, offset, characterFilter);
-
     }
 
     // Set list with
@@ -32,6 +31,7 @@ class CharactersListClass extends Component {
             this.setState({ list: [...this.state.list, ...this.props.characters] });
         }
     }
+
 
     //Fetchs new items
     fetchData = () => {
@@ -51,9 +51,9 @@ class CharactersListClass extends Component {
         let content = <Spinner />
 
         const { list } = this.state;
-        const { errors, history } = this.props;
+        const { errors, history, characterFilter, setCharFilter } = this.props;
 
-        //* Check if there are gobal errors, if so redirect to Errors page 
+        //* Check if there are gobal errors, if so redirect to Errors page
         if (!isEmpty(errors)) {
             history.push('/error-page');
         }
@@ -71,9 +71,19 @@ class CharactersListClass extends Component {
 
             content = (
                 <Fragment>
-                    <div className="container">
+                    <div style={{ background: '#E9ECEF' }} className="container d-flex justify-content-between align-items-center">
                         <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={'characters'} />
-                    </div>
+                        <div>
+                            <h5
+                                onClick={() => setCharFilter(characterFilter)}
+                                style={{ cursor: 'pointer' }}
+                                className="text-center"
+                            >
+                                Filtered by name
+                                {characterFilter ? <i className="fas fa-sort-alpha-down"></i> : <i className="fas fa-sort-alpha-down-alt"></i>}
+                            </h5>
+                        </div>
+                </div>
                     <InfiniteScroll
                         className="container grid mt-4 mb-5"
                         dataLength={list.length}
@@ -93,6 +103,7 @@ class CharactersListClass extends Component {
 }
 
 const mapStateToProps = (state) => ({
+    characterFilter: state.layout.characterFilter,
     characters: state.marvel.characters,
     errors: state.errors
 });
