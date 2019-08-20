@@ -1,4 +1,4 @@
-import React, { useEffect, Fragment } from 'react';
+import React, { useEffect, Fragment, useState } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Helmet from 'react-helmet';
 import List from '../commons/list/List';
@@ -11,6 +11,8 @@ import { setFavorite, removeFavorite } from '../../redux/actions/layoutActions';
 
 const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, removeFavorite, favorites, history, errors }) => {
 
+    const [showText, setShowText] = useState(false);
+
     useEffect(() => {
         getSingleCharacter(match.params.char_id);
     }, [match.params.char_id])
@@ -18,7 +20,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
     let content = <Spinner />
 
     //* Check if there are gobal errors, if so redirect to Errors page 
-    if(!isEmpty(errors)) {
+    if (!isEmpty(errors)) {
         history.push('/error-page');
     }
 
@@ -27,9 +29,27 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
 
         let favIcon;
         if (favorites.filter(fav => fav.id === id).length > 0) {
-            favIcon = <i title="Remove from favorites" style={{ cursor: 'pointer' }} onClick={() => removeFavorite(id)} className="fas fa-star"></i>
+            favIcon = (
+                <span
+                    onMouseEnter={() => setShowText(true)}
+                    onMouseLeave={() => setShowText(false)}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => removeFavorite(id)}
+                >
+                    {showText ? 'Remove from Favorites' : null}&nbsp;<i title="Remove from favorites" className="fas fa-star fa-2x"></i>
+                </span>
+            )
         } else {
-            favIcon = <i title="Add to favorites" style={{ cursor: 'pointer' }} onClick={() => setFavorite({ name, id })} className="far fa-star"></i>
+            favIcon = (
+                <span
+                    onMouseEnter={() => setShowText(true)}
+                    onMouseLeave={() => setShowText(false)}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => setFavorite({ name, id })}
+                >
+                    {showText ? 'Add to Favorites' : null}&nbsp;<i className="far fa-star fa-2x"></i>
+                </span>
+            )
         }
 
         content = (
@@ -39,18 +59,16 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
                 </Helmet>
 
                 <div id="singleCharacter" className="container mb-4">
-                    <Breadcrumbs elements={[{ path: '/', name: 'home' },{ path: '/characters', name: 'Characters' }]} current={name} />
+                    <Breadcrumbs elements={[{ path: '/', name: 'home' }, { path: '/characters', name: 'Characters' }]} current={name} />
+                    <div className="d-flex justify-content-end mr-4">
+                        {favIcon}
+                    </div>
                     <div className="row">
                         <div className="col-12 col-md-4 d-flex align-items-center justify-content-center">
                             <img src={thumbnail.path + "/portrait_uncanny." + thumbnail.extension} alt={name} className="thumbnail rounded" />
                         </div>
                         <div className="col-12 col-md-8 d-flex align-items-center justify-content-center">
                             <div>
-                                <div className="d-flex justify-content-end mr-4">
-                                    <h2>
-                                        {favIcon}
-                                    </h2>
-                                </div>
                                 <h4 className="display-4 text-center">{name}</h4>
                                 <p className="lead">{description.length > 0 ? description : "No description available..."}</p>
                             </div>
@@ -77,7 +95,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
 
 const mapStateToProps = (state) => ({
     character: state.marvel.singleCharacter,
-    favorites: state.layout.favorites, 
+    favorites: state.layout.favorites,
     errors: state.errors
 });
 

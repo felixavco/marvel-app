@@ -8,7 +8,7 @@ const Breadcrumbs = ({elements, current}) => {
 
     return (
         <nav aria-label="breadcrumb">
-            <ol className="breadcrumb">
+            <ol style={{marginBottom: '0'}} className="breadcrumb">
                 { items }
                 <li className="breadcrumb-item " aria-current="page">{current}</li>
             </ol>

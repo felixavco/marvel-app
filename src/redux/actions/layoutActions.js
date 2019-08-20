@@ -69,4 +69,4 @@ export const setCharFilter = (filterState) => (dispatch) => {
             payload: JSON.parse(localStorage.preferences)[0]
         });
     }
-}
+} 
