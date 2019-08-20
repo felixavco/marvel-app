@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { GET_ERRORS, GET_CHARACTERS, GET_ONE_CHARACTER, GET_COMICS, GET_ONE_COMIC, GET_STORIES, GET_ONE_STORY } from '../types';
+import { GET_ERRORS, GET_CHARACTERS, GET_ONE_CHARACTER, GET_COMICS, GET_ONE_COMIC, GET_STORIES, GET_ONE_STORY, ON_SEARCH } from '../types';
 import { url } from '../../utils';
 
 /**
  * @Method: GET
  * @Desc: Returns list of of all Characters
  */
-export const getCharacters = (limit, offset, filter=true) => (dispatch) => {
+export const getCharacters = (limit, offset, filter = true) => (dispatch) => {
 
     axios
         .get(url('/characters', `&limit=${limit}&offset=${offset}&orderBy=${filter ? 'name' : '-name'}`))
@@ -22,7 +22,6 @@ export const getCharacters = (limit, offset, filter=true) => (dispatch) => {
                 payload: err
             });
         });
-
 }
 
 /**
@@ -135,4 +134,25 @@ export const getSingleStory = (id) => (dispatch) => {
                 payload: err
             });
         });
+}
+
+/**
+ * @Method: GET
+ * @Desc: Returns a list of characters that matches the search term. 
+ */
+export const onSearch = (value) => (dispatch) => {
+    axios
+    .get(url('/characters', `&limit=100&offset=0&orderBy=name&nameStartsWith=${value}`))
+    .then(res => {
+        dispatch({
+            type: ON_SEARCH,
+            payload: {data: res.data.data, searchTerm: value }
+        });
+    })
+    .catch(err => {
+        dispatch({
+            type: GET_ERRORS,
+            payload: err
+        });
+    });
 }

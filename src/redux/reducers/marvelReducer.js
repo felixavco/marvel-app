@@ -1,6 +1,8 @@
-import { GET_CHARACTERS, GET_ONE_CHARACTER, GET_COMICS, GET_ONE_COMIC, GET_STORIES, GET_ONE_STORY } from '../types';
+import { GET_CHARACTERS, GET_ONE_CHARACTER, GET_COMICS, GET_ONE_COMIC, GET_STORIES, GET_ONE_STORY, ON_SEARCH } from '../types';
 
-const initialState = {};
+const initialState = {
+    searchTerm: ''
+};
 
 export default (state = initialState, action) => {
     switch (action.type) {
@@ -39,6 +41,13 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 singleStory: action.payload[0]
+            }
+
+        case ON_SEARCH:
+            return {
+                ...state,
+                searchResults: action.payload.data.results,
+                searchTerm: action.payload.searchTerm
             }
 
         default:

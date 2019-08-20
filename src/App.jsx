@@ -17,6 +17,7 @@ import Home from './components/layout/home/Home';
 
 import CharactersList from './components/characters/CharactersList';
 import SingleCharacter from './components/characters/SingleCharacter';
+import SearchResults from './components/characters/SearchResults';
 
 import ComicsList from './components/comics/ComicsList';
 import SingleComic from './components/comics/SingleComic';
@@ -57,6 +58,7 @@ const App = () => (
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/characters" component={CharactersList} />
+          <Route exact path="/search-results" component={SearchResults} />
           <Route exact path="/comics" component={ComicsList} />
           <Route exact path="/stories" component={StoriesList} />
           <Route exact path="/character/:char_id" component={SingleCharacter} />

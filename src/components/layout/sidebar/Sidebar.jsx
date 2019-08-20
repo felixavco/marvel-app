@@ -12,7 +12,8 @@ const Sidebar = ({ isMenuActive, toggleMenu, isSubMenuActive, toggleSubMenu }) =
     return (
         <nav id="Sidebar" className={isMenuActive ? "side-nav-active" : null}>
             <ul className="sidebar-ul">
-                <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/">Characters</NavLink></li>
+                <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/">Home</NavLink></li>
+                <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/characters">Characters</NavLink></li>
                 <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/comics">Comics</NavLink></li>
                 <li><NavLink onClick={() => toggleMenu(isMenuActive)} exact={true} to="/stories">Stories</NavLink></li>
                 <li className="bookmarks" onClick={() => toggleSubMenu(isSubMenuActive)}>Favorites</li>

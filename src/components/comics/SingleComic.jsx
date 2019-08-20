@@ -37,7 +37,7 @@ const SingleComic = ({ comic, getSingleComic, match, errors, history }) => {
                 </Helmet>
                 <div id="singleComic" className="container mb-4">
 
-                    <Breadcrumbs elements={[{ path: '/comics', name: 'Comics' }]} current={title} />
+                    <Breadcrumbs elements={[{ path: '/', name: 'Home' },{ path: '/comics', name: 'Comics' }]} current={title} />
 
                     <h1 className="text-center display-4">{title}</h1>
                     <hr />

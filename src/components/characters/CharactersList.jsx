@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
 import { isEmpty } from '../../utils';
@@ -54,7 +54,7 @@ class CharactersList extends Component {
         const { errors, history } = this.props;
 
         //* Check if there are gobal errors, if so redirect to Errors page 
-        if(!isEmpty(errors)) {
+        if (!isEmpty(errors)) {
             history.push('/error-page');
         }
 
@@ -71,18 +71,20 @@ class CharactersList extends Component {
 
             content = (
                 <Fragment>
-                     <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={characters} />
-                     <InfiniteScroll
+                    <div className="container">
+                        <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={'characters'} />
+                    </div>
+                    <InfiniteScroll
                         className="container grid mt-4 mb-5"
                         dataLength={list.length}
                         next={this.fetchData}
                         hasMore={true}
                         loader={<div className="my-"><Spinner fullHeigh={false} /></div>}
                     >
-                        {filteredList.map((item, i) => <Card key={i} data={item} />)}
+                        {filteredList.map(item => <Card key={item.id} data={item} />)}
                     </InfiniteScroll>
                 </Fragment>
-                   
+
             );
 
         }

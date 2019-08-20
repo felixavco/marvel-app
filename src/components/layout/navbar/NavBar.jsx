@@ -10,7 +10,7 @@ const NavBar = () => {
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div className="container-fluid d-flex justify-content-between aling-items-center">
                     <MenuIcon />
-                    
+
                     <div className="logo d-none d-md-block">
                         <Link to="/">
                             <img src={Logo} alt="Marvel Logo" />

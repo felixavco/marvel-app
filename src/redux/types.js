@@ -15,3 +15,5 @@ export const GET_ONE_COMIC = 'GET_ONE_COMIC';
 
 export const GET_STORIES = 'GET_STORIES'
 export const GET_ONE_STORY = 'GET_ONE_STORY';
+
+export const ON_SEARCH = 'ON_SEARCH';
