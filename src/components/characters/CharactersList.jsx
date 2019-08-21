@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
-import { isEmpty } from '../../utils';
+import { isEmpty, removeDuplicates } from '../../utils';
 import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
 //Redux
 import { connect } from 'react-redux';
@@ -16,17 +16,15 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
     const [limit] = useState(20);
     const [offset, setOffset] = useState(0);
 
-    //* Component Did Mount
+    //* initial load and reset list when filter changes
     useEffect(() => {
-        setList([]);
-        setOffset(0);
         getCharacters(limit, offset, characterFilter);
     }, [characterFilter]);
 
-    //* Component Did Update
+    //* updates the list when characters is updated
     useEffect(() => {
         if (characters) {
-          setList([...list, ...characters]);
+            setList([...list, ...characters]);
         }
     }, [characters]);
 
@@ -39,6 +37,13 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
         }
     }
 
+    //* Reset list and offset before update charfilter
+    const cleanAndUpdate = () => {
+        setList([]);
+        setOffset(0);
+        setCharFilter(characterFilter)
+    }
+
     let content = <Spinner />
 
     //* Check if there are gobal errors, if so redirect to Errors page
@@ -47,14 +52,7 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
     }
 
     if (list && list.length > 0) {
-        //* Removing duplicate objects from list
-        const seen = new Set();
-        const filteredList = list.filter(el => {
-            const duplicate = seen.has(el.id);
-            seen.add(el.id);
-            return !duplicate;
-        });
-
+        
         content = (
             <InfiniteScroll
                 className="container grid mt-4 mb-5"
@@ -63,29 +61,33 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
                 hasMore={true}
                 loader={<div className="my-"><Spinner fullHeigh={false} /></div>}
             >
-                {filteredList.map(item => <Card key={item.id} data={item} />)}
+                {removeDuplicates(list).map(item => <Card key={item.id} data={item} />)}
             </InfiniteScroll>
         );
     }
 
     return (
 
-         <Fragment>
-                <div style={{ background: '#E9ECEF' }} className="container d-flex justify-content-between align-items-center">
-                    <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={'characters'} />
-                    <div>
-                        <h5
-                            onClick={() => setCharFilter(characterFilter)}
-                            style={{ cursor: 'pointer' }}
-                            className="text-center"
-                        >
-                            Filtered by name
-                            {characterFilter ? <i className="fas fa-sort-alpha-down"></i> : <i className="fas fa-sort-alpha-down-alt"></i>}
-                        </h5>
-                    </div>
+        <Fragment>
+            <div style={{ background: '#E9ECEF' }} className="container d-flex justify-content-between align-items-center">
+                <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={'characters'} />
+                <div>
+                    <h5
+                        onClick={cleanAndUpdate}
+                        style={{ cursor: 'pointer' }}
+                        className="text-center"
+                    >
+                        Filtered by name &nbsp;
+                        {
+                            characterFilter ?
+                                <i className="fas fa-sort-alpha-down fa-lg" /> :
+                                <i className="fas fa-sort-alpha-down-alt fa-lg" />
+                        }
+                    </h5>
                 </div>
-                { content }
-            </Fragment>
+            </div>
+            {content}
+        </Fragment>
 
     );
 }

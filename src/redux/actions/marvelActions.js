@@ -50,10 +50,10 @@ export const getSingleCharacter = (id) => (dispatch) => {
  * @Method: GET
  * @Desc: Returns list of of all Comics
  */
-export const getComics = (limit, offset) => (dispatch) => {
+export const getComics = (limit, offset, formatType, displayBy, orderBy) => (dispatch) => {
 
     axios
-        .get(url('/comics', `&limit=${limit}&offset=${offset}`))
+        .get(url('/comics', `&limit=${limit}&offset=${offset}&formatType=${formatType}&orderBy=${!orderBy ? '-' : null}${displayBy}`))
         .then(res => {
             dispatch({
                 type: GET_COMICS,

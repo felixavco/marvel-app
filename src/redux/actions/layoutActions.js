@@ -1,4 +1,4 @@
-import { TOGGLE_NAV, TOGGLE_SUB_MENU, SET_FAB_CHAR, SET_CHAR_FILTER } from '../types';
+import { TOGGLE_NAV, TOGGLE_SUB_MENU, SET_FAB_CHAR, SET_CHAR_FILTER, SET_COMIC_FILTER } from '../types';
 
 export const toggleMenu = (isActive) => (dispatch) => {
     dispatch({
@@ -55,7 +55,7 @@ export const removeFavorite = (id) => (dispatch) => {
 }
 
 export const setCharFilter = (filterState) => (dispatch) => {
-    const LS = localStorage.preferences
+    const LS = localStorage.preferences;
 
     if(LS) {
         //Current preferences values
@@ -70,3 +70,22 @@ export const setCharFilter = (filterState) => (dispatch) => {
         });
     }
 } 
+
+export const setComicFilter = (formatType, displayBy, orderBy) => (dispatch) => {
+    const LS = localStorage.preferences;
+
+    if(LS) {
+        //Current preferences values
+        let preferences = JSON.parse(LS);
+        //Change the values 
+        preferences[1] = formatType;
+        preferences[2] = displayBy;
+        preferences[3] = orderBy;
+        localStorage.setItem('preferences', JSON.stringify(preferences));
+
+        dispatch({
+            type: SET_COMIC_FILTER,
+            payload: JSON.parse(localStorage.preferences)[0]
+        });
+    }
+}

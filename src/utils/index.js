@@ -19,4 +19,16 @@ export const isEmpty = value => {
     );
 }
 
+export const removeDuplicates = arr => {
+    //* Removing duplicate objects from list
+    const seen = new Set();
+    const filteredList = arr.filter(el => {
+        const duplicate = seen.has(el.id);
+        seen.add(el.id);
+        return !duplicate;
+    });
+
+    return filteredList
+}
+
 

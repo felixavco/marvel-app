@@ -4,7 +4,7 @@ import './styles/App.scss';
 //Redux
 import { Provider } from 'react-redux';
 import store from './redux/store';
-import { SET_FAB_CHAR, SET_CHAR_FILTER } from './redux/types';
+import { SET_FAB_CHAR, SET_DEFAULT_FILTERS } from './redux/types';
 
 //React Router
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -29,22 +29,27 @@ import ErrorPage from './components/commons/errorPages/ErrorPage';
 import NotFound from './components/commons/errorPages/NotFound';
 
 //* if there are items in the favorites array. Set favorites to initial state
-if(localStorage.favorites) {
+if (localStorage.favorites) {
   store.dispatch({
-        type: SET_FAB_CHAR,
-        payload: JSON.parse(localStorage.favorites)
+    type: SET_FAB_CHAR,
+    payload: JSON.parse(localStorage.favorites)
   });
 }
 
 //* If preferences are not set, set the default preferences at the first page load.
-if(!localStorage.preferences) {
-    //* Default Preferences [charactersFilter:boolean, ] */
-    const preferences = [false]
-    localStorage.setItem('preferences', JSON.stringify(preferences));
+if (!localStorage.preferences) {
+  //* Default Preferences [charactersFilter:boolean, formatType:str, displayBy:str, orderBy:bool] */
+  const preferences = [false, 'comic', 'title', true]
+  localStorage.setItem('preferences', JSON.stringify(preferences));
 
-    store.dispatch({
-        type: SET_CHAR_FILTER,
-        payload: JSON.parse(localStorage.preferences)[0]
+  store.dispatch({
+    type: SET_DEFAULT_FILTERS,
+    payload: JSON.parse(localStorage.preferences)
+  });
+} else {
+  store.dispatch({
+    type: SET_DEFAULT_FILTERS,
+    payload: JSON.parse(localStorage.preferences)
   });
 }
 
@@ -64,9 +69,9 @@ const App = () => (
           <Route exact path="/character/:char_id" component={SingleCharacter} />
           <Route exact path="/comic/:comic_id" component={SingleComic} />
           <Route exact path="/story/:story_id" component={SingleStory} />
-          <Route exact path="/error-page" component={ErrorPage}/>
+          <Route exact path="/error-page" component={ErrorPage} />
           {/* CatchAll route  404 page */}
-          <Route exact path="/page-not-found" component={NotFound}/>
+          <Route exact path="/page-not-found" component={NotFound} />
           <Redirect to="/page-not-found" />
         </Switch>
       </div>

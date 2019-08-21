@@ -1,0 +1,36 @@
+#home {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+
+    #bg {
+        // opacity: 0.70;
+        position: absolute;
+        width: 100%;
+        height: 100%;
+    }
+
+    h1 {
+        font-size: 3rem;
+        font-weight: 700;
+    }
+    .card {
+        background: $marvel-color;
+        margin: 1rem;
+        color: snow;
+        text-decoration: none;
+        text-align: center;
+        padding: 1.5rem;
+        border-radius: 0.75rem;
+        font-weight: 500;
+        font-size: 1.5rem;
+        transition: all 250ms linear;
+
+        &:hover {
+            transform: scale(1.1);
+            background: darken( $marvel-color, 15% );
+            font-size: 1.65rem;
+        }
+    }
+}

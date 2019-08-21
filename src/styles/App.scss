@@ -29,7 +29,10 @@ $main: #373a3c;
 
 @import "./grid";
 
+@import "../components/layout/home/home.scss";
+
 
 #main {
  padding: 54px 0 0 0;
+//  background: lighten( $marvel-color, 15% );
 }
