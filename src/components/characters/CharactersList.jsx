@@ -12,34 +12,23 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 
 const CharactersList = ({ getCharacters, setCharFilter, characters, errors, history, characterFilter }) => {
 
-    const [trigger, setTrigger] = useState(!characterFilter)
     const [list, setList] = useState([]);
-    const [limit] = useState(4);
+    const [limit] = useState(20);
     const [offset, setOffset] = useState(0);
 
     //* Component Did Mount
     useEffect(() => {
+        setList([]);
+        setOffset(0);
         getCharacters(limit, offset, characterFilter);
-        setTrigger(!characterFilter);
     }, [characterFilter]);
 
     //* Component Did Update
     useEffect(() => {
         if (characters) {
-           resetList();
+          setList([...list, ...characters]);
         }
     }, [characters]);
-
-
-    const resetList = () => {
-        if(trigger) {
-            setList([...list, ...characters]);
-            console.log("No changes", "PREV ", "CURRENT ", characterFilter)
-        } else {
-            setList(characters);
-            console.log("YES changes")
-        }
-    }
 
     const fetchData = () => {
         setOffset(limit + offset);
@@ -67,12 +56,23 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
         });
 
         content = (
-            <Fragment>
+            <InfiniteScroll
+                className="container grid mt-4 mb-5"
+                dataLength={list.length}
+                next={fetchData}
+                hasMore={true}
+                loader={<div className="my-"><Spinner fullHeigh={false} /></div>}
+            >
+                {filteredList.map(item => <Card key={item.id} data={item} />)}
+            </InfiniteScroll>
+        );
+    }
+
+    return (
+
+         <Fragment>
                 <div style={{ background: '#E9ECEF' }} className="container d-flex justify-content-between align-items-center">
                     <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={'characters'} />
-                    {/*!***********BORRAR*********** */}
-                    { characterFilter ? "A-Z" : "Z-A" }
-                    {/*!***********BORRAR*********** */}
                     <div>
                         <h5
                             onClick={() => setCharFilter(characterFilter)}
@@ -84,21 +84,10 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
                         </h5>
                     </div>
                 </div>
-                <InfiniteScroll
-                    className="container grid mt-4 mb-5"
-                    dataLength={list.length}
-                    next={fetchData}
-                    hasMore={true}
-                    loader={<div className="my-"><Spinner fullHeigh={false} /></div>}
-                >
-                    {filteredList.map(item => <Card key={item.id} data={item} />)}
-                </InfiniteScroll>
+                { content }
             </Fragment>
 
-        );
-    }
-
-    return content;
+    );
 }
 
 
