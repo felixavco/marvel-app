@@ -45,7 +45,9 @@ const Searchbar = ({ onSearch, history }) => {
 
     return (
         <form onSubmit={(e) => e.preventDefault()} id="SearchBar" className="d-flex align-items-center">
+            <label className="d-none" htmlFor="inputSearch">Input Search</label>
             <input 
+                id="inputSearch"
                 value={value} 
                 onChange={(e) => setValue(e.target.value)} 
                 onKeyDown={onKeyDown} 
@@ -53,7 +55,7 @@ const Searchbar = ({ onSearch, history }) => {
                 type="text" 
                 placeholder="Search Characters" 
             />
-            <button className="btn btn-danger" type="submit">{buttonIcon}</button>
+            <button className="btn btn-danger" name="Search bar button" type="submit">{buttonIcon}</button>
         </form>
     )
 }

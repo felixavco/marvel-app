@@ -19,7 +19,7 @@
   font-weight: 700;
  }
  .card {
-  background: $marvel-color;
+  background: $main;
   margin: 1rem;
   color: snow;
   text-decoration: none;
@@ -32,7 +32,7 @@
 
   &:hover {
    transform: scale(1.1);
-   background: darken($marvel-color, 15%);
+   background: darken($marvel-color, 25%);
    font-size: 1.65rem;
   }
  }

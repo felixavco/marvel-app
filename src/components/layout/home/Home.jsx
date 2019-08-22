@@ -13,7 +13,7 @@ const Home = () => {
                 <title>Marvel App</title>
             </Helmet>
             
-            <ResponsiveImage className="bg">
+            <ResponsiveImage className="bg" alt="Background banner">
                 <ResponsiveImageSize
                     default
                     minWidth={0}
