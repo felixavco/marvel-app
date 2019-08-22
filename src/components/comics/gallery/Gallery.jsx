@@ -60,7 +60,10 @@ const Gallery = ({ images, isActive, setIsActive }) => {
             <div className="container">
                 <div className="row mt-1">
                     <div className="col-1 d-flex justify-content-center align-items-center">
-                        <i onClick={() => prevImg()} id="btn-prev" className="fas fa-chevron-left"></i>
+                        <span onClick={prevImg}>
+                            {images.length > 1 && <i id="btn-prev" className="fas fa-chevron-left" />}
+                        </span>
+
                     </div>
 
                     <div className="col-10 text-center">
@@ -69,8 +72,10 @@ const Gallery = ({ images, isActive, setIsActive }) => {
                     </div>
 
                     <div className="col-1 d-flex justify-content-center align-items-center">
-                        <i onClick={() => setIsActive(false)} id="btn-close-gallery" className="far fa-times-circle"></i>
-                        <i onClick={() => nextImg()} id="btn-next" className="fas fa-chevron-right"></i>
+                        <i onClick={() => setIsActive(false)} id="btn-close-gallery" className="far fa-times-circle" />
+                        <span onClick={nextImg} >
+                            {images.length > 1 && <i id="btn-next" className="fas fa-chevron-right" />}
+                        </span>
                     </div>
                 </div>
             </div>

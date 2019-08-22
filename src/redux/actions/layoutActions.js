@@ -77,6 +77,7 @@ export const setComicFilter = (formatType, displayBy, orderBy) => (dispatch) => 
     if(LS) {
         //Current preferences values
         let preferences = JSON.parse(LS);
+
         //Change the values 
         preferences[1] = formatType;
         preferences[2] = displayBy;
@@ -85,7 +86,7 @@ export const setComicFilter = (formatType, displayBy, orderBy) => (dispatch) => 
 
         dispatch({
             type: SET_COMIC_FILTER,
-            payload: JSON.parse(localStorage.preferences)[0]
+            payload: JSON.parse(localStorage.preferences)
         });
     }
 }

@@ -53,7 +53,7 @@ export const getSingleCharacter = (id) => (dispatch) => {
 export const getComics = (limit, offset, formatType, displayBy, orderBy) => (dispatch) => {
 
     axios
-        .get(url('/comics', `&limit=${limit}&offset=${offset}&formatType=${formatType}&orderBy=${!orderBy ? '-' : null}${displayBy}`))
+        .get(url('/comics', `&limit=${limit}&offset=${offset}&formatType=${formatType}&orderBy=${orderBy ? '' : '-'}${displayBy}`))
         .then(res => {
             dispatch({
                 type: GET_COMICS,
@@ -142,17 +142,17 @@ export const getSingleStory = (id) => (dispatch) => {
  */
 export const onSearch = (value) => (dispatch) => {
     axios
-    .get(url('/characters', `&limit=100&offset=0&orderBy=name&nameStartsWith=${value}`))
-    .then(res => {
-        dispatch({
-            type: ON_SEARCH,
-            payload: {data: res.data.data, searchTerm: value }
+        .get(url('/characters', `&limit=100&offset=0&orderBy=name&nameStartsWith=${value}`))
+        .then(res => {
+            dispatch({
+                type: ON_SEARCH,
+                payload: { data: res.data.data, searchTerm: value }
+            });
+        })
+        .catch(err => {
+            dispatch({
+                type: GET_ERRORS,
+                payload: err
+            });
         });
-    })
-    .catch(err => {
-        dispatch({
-            type: GET_ERRORS,
-            payload: err
-        });
-    });
 }

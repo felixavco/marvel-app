@@ -4,6 +4,8 @@ import Card from '../commons/card/Card';
 import Spinner from '../commons/spinner/Spinner';
 import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
 import { isEmpty } from '../../utils';
+import Helmet from 'react-helmet';
+
 
 const SearchResults = ({ characters, errors, searchTerm, history }) => {
 
@@ -36,6 +38,9 @@ const SearchResults = ({ characters, errors, searchTerm, history }) => {
 
     return (
         <Fragment>
+            <Helmet>
+                <title>Resutls for "{searchTerm}"</title>
+            </Helmet>
             <div className="container">
                 <Breadcrumbs elements={[{ path: '/', name: 'home' }, { path: '/characters', name: 'Characters' }]} current={searchTerm} />
             </div>

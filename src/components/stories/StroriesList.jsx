@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react';
 import Spinner from '../commons/spinner/Spinner';
 import StoryItem from './StoryItem';
 import { isEmpty } from '../../utils';
+
 //Redux
 import { connect } from 'react-redux';
 import { getStories } from '../../redux/actions/marvelActions';
@@ -20,6 +21,7 @@ class StoriesList extends PureComponent {
     componentDidMount = () => {
         const { limit, offset } = this.state;
         this.props.getStories(limit, offset);
+        document.title = "Stories"
     }
 
     // Set list with

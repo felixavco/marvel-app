@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { ResponsiveImage, ResponsiveImageSize } from 'react-responsive-image';
+import Helmet from 'react-helmet';
 import bg from '../../../img/bg.jpg';
 import mdBg from '../../../img/md-bg.jpg';
 import smBg from '../../../img/sm-bg.jpg';
@@ -7,8 +9,26 @@ import smBg from '../../../img/sm-bg.jpg';
 const Home = () => {
     return (
         <div id="home">
+            <Helmet>
+                <title>Marvel App</title>
+            </Helmet>
+            
+            <ResponsiveImage className="bg">
+                <ResponsiveImageSize
+                    default
+                    minWidth={0}
+                    path={smBg}
+                />
+                <ResponsiveImageSize
+                    minWidth={768}
+                    path={mdBg}
+                />
+                <ResponsiveImageSize
+                    minWidth={1200}
+                    path={bg}
+                />
+            </ResponsiveImage>
 
-            <img id="bg" src={smBg} srcSet={`${smBg} 370w, ${mdBg} 768w, ${bg} 1280w`} alt="main background"/>
 
             <div className="container">
                 <div className="row mx-auto d-flex justify-content-center">

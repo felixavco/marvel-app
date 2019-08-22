@@ -3,6 +3,8 @@ import Spinner from '../commons/spinner/Spinner';
 import Card from '../commons/card/Card';
 import { isEmpty, removeDuplicates } from '../../utils';
 import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
+import Helmet from 'react-helmet';
+
 //Redux
 import { connect } from 'react-redux';
 import { getCharacters } from '../../redux/actions/marvelActions';
@@ -69,6 +71,9 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
     return (
 
         <Fragment>
+            <Helmet>
+                <title>Characters</title>
+            </Helmet>
             <div style={{ background: '#E9ECEF' }} className="container d-flex justify-content-between align-items-center">
                 <Breadcrumbs elements={[{ path: '/', name: 'home' }]} current={'characters'} />
                 <div>

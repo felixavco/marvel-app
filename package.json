@@ -10,6 +10,7 @@
     "react-helmet": "^5.2.1",
     "react-infinite-scroll-component": "^4.5.3",
     "react-redux": "^7.1.0",
+    "react-responsive-image": "^5.0.0",
     "react-router-dom": "^5.0.1",
     "react-scripts": "3.0.1",
     "react-virtualized-auto-sizer": "^1.0.2",
