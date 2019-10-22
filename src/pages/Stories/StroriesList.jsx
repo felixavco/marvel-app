@@ -1,5 +1,5 @@
 import React, { PureComponent } from 'react';
-import Spinner from '../commons/spinner/Spinner';
+import Spinner from '../../components/commons/spinner/Spinner';
 import StoryItem from './StoryItem';
 import { isEmpty } from '../../utils';
 

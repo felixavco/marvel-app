@@ -1,8 +1,8 @@
 import React, { useState, useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
-import Card from '../commons/card/Card';
-import Spinner from '../commons/spinner/Spinner';
-import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
+import Card from '../../components/commons/card/Card';
+import Spinner from '../../components/commons/spinner/Spinner';
+import Breadcrumbs from '../../components/commons/breadcrumbs/Breadcrumbs';
 import { isEmpty } from '../../utils';
 import Helmet from 'react-helmet';
 

@@ -4,8 +4,6 @@ import Card from '../commons/card/Card';
 import { isEmpty, removeDuplicates } from '../../utils';
 import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
 import Helmet from 'react-helmet';
-
-//Redux
 import { connect } from 'react-redux';
 import { getCharacters } from '../../redux/actions/marvelActions';
 import { setCharFilter } from '../../redux/actions/layoutActions';

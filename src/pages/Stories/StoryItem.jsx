@@ -8,4 +8,4 @@ const StoryItem = ({ item }) => (
 )
 
 
-export default StoryItem
+export default StoryItem;

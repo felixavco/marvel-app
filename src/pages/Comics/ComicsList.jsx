@@ -1,13 +1,13 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import Spinner from '../commons/spinner/Spinner';
-import Card from '../commons/card/Card';
+import Spinner from '../../components/commons/spinner/Spinner';
+import Card from '../../components/commons/card/Card';
 import { isEmpty, removeDuplicates } from '../../utils';
 import Helmet from 'react-helmet';
 //Redux
 import { connect } from 'react-redux';
 import { getComics } from '../../redux/actions/marvelActions';
 import { setComicFilter } from '../../redux/actions/layoutActions';
-import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '../../components/commons/breadcrumbs/Breadcrumbs';
 
 import './comicsList.scss'
 

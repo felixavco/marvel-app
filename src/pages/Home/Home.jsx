@@ -2,9 +2,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ResponsiveImage, ResponsiveImageSize } from 'react-responsive-image';
 import Helmet from 'react-helmet';
-import bg from '../../../img/bg.jpg';
-import mdBg from '../../../img/md-bg.jpg';
-import smBg from '../../../img/sm-bg.jpg';
+import bg from '../../img/bg.jpg';
+import mdBg from '../../img/md-bg.jpg';
+import smBg from '../../img/sm-bg.jpg';
 
 const Home = () => {
     return (
