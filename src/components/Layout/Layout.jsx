@@ -6,7 +6,7 @@ import store from "../../redux/store";
 import { BrowserRouter } from "react-router-dom";
 import Sidebar from "./sidebar/Sidebar";
 import Footer from "./footer/Footer";
-import { SET_FAB_CHAR, SET_DEFAULT_FILTERS } from "./redux/types";
+import { SET_FAB_CHAR, SET_DEFAULT_FILTERS } from "../../redux/types";
 
 //* if there are items in the favorites array. Set favorites to initial state
 if (localStorage.favorites) {

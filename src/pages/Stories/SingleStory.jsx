@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import Spinner from '../commons/spinner/Spinner';
+import Spinner from '../../components/commons/spinner/Spinner';
 import Helmet from 'react-helmet';
-import Badges from '../commons/badges/Badges';
+import Badges from '../../components/commons/badges/Badges';
 import { isEmpty } from '../../utils';
 
 //Redux

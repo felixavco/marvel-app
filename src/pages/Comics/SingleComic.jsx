@@ -1,9 +1,9 @@
 import React, { useEffect, useState, Fragment } from 'react';
-import Spinner from '../commons/spinner/Spinner';
+import Spinner from '../../components/commons/spinner/Spinner';
 import Helmet from 'react-helmet';
-import Badges from '../commons/badges/Badges';
+import Badges from '../../components/commons/badges/Badges';
 import Gallery from './gallery/Gallery';
-import Breadcrumbs from '../commons/breadcrumbs/Breadcrumbs';
+import Breadcrumbs from '../../components/commons/breadcrumbs/Breadcrumbs';
 import { isEmpty } from '../../utils';
 
 //Redux

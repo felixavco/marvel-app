@@ -23,13 +23,13 @@ $main: #373a3c;
 
 @import "../components/layout/footer/footer.scss";
 
-@import "../components/comics/gallery/gallery.scss";
+@import "../pages/comics/gallery/gallery.scss";
 
-@import "../components/stories/story.scss";
+@import "../pages/stories/story.scss";
 
 @import "./grid";
 
-@import "../components/layout/home/home.scss";
+@import "../pages/Home/home.scss";
 
 
 #main {
