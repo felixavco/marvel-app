@@ -5,16 +5,19 @@ import List from '../../components/commons/list/List';
 import Breadcrumbs from '../../components/commons/breadcrumbs/Breadcrumbs';
 import { isEmpty } from '../../utils';
 //Redux
-import { connect } from 'react-redux';
-import { getSingleCharacter } from '../../redux/actions/marvelActions';
-import { setFavorite, removeFavorite } from '../../redux/actions/layoutActions';
+import { useSelector } from 'react-redux';
+import { charactersActions } from '../../redux/actions/marvelActions';
+import { layoutActions } from '../../redux/actions/layoutActions';
 
-const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, removeFavorite, favorites, history, errors }) => {
+const SingleCharacter = ({ match, history  }) => {
 
     const [showText, setShowText] = useState(false);
+    const character = useSelector(state => state.marvel.singleCharacter);
+    const favorites = useSelector(state => state.layout.favorites);
+    const errors = useSelector(state => state.errors);
 
     useEffect(() => {
-        getSingleCharacter(match.params.char_id);
+        charactersActions.getOne(match.params.char_id);
     }, [match.params.char_id])
 
     let content = <Spinner />
@@ -34,7 +37,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
                     onMouseEnter={() => setShowText(true)}
                     onMouseLeave={() => setShowText(false)}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => removeFavorite(id)}
+                    onClick={() => layoutActions.removeFavorite(id)}
                 >
                     {showText ? 'Remove from Favorites' : null}&nbsp;<i title="Remove from favorites" className="fas fa-star fa-2x"></i>
                 </span>
@@ -45,7 +48,7 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
                     onMouseEnter={() => setShowText(true)}
                     onMouseLeave={() => setShowText(false)}
                     style={{ cursor: 'pointer' }}
-                    onClick={() => setFavorite({ name, id })}
+                    onClick={() => layoutActions.setFavorite({ name, id })}
                 >
                     {showText ? 'Add to Favorites' : null}&nbsp;<i className="far fa-star fa-2x"></i>
                 </span>
@@ -93,10 +96,5 @@ const SingleCharacter = ({ getSingleCharacter, character, match, setFavorite, re
     return content;
 }
 
-const mapStateToProps = (state) => ({
-    character: state.marvel.singleCharacter,
-    favorites: state.layout.favorites,
-    errors: state.errors
-});
 
-export default connect(mapStateToProps, { getSingleCharacter, setFavorite, removeFavorite })(SingleCharacter)
+export default SingleCharacter;

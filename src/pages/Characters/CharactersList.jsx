@@ -4,21 +4,24 @@ import Card from '../../components/commons/card/Card';
 import { isEmpty, removeDuplicates } from '../../utils';
 import Breadcrumbs from '../../components/commons/breadcrumbs/Breadcrumbs';
 import Helmet from 'react-helmet';
-import { connect } from 'react-redux';
-import { getCharacters } from '../../redux/actions/marvelActions';
-import { setCharFilter } from '../../redux/actions/layoutActions';
+import { useSelector } from 'react-redux';
+import { charactersActions } from '../../redux/actions/marvelActions';
+import { layoutActions } from '../../redux/actions/layoutActions';
 
 import InfiniteScroll from 'react-infinite-scroll-component';
 
-const CharactersList = ({ getCharacters, setCharFilter, characters, errors, history, characterFilter }) => {
+const CharactersList = ({ history }) => {
 
     const [list, setList] = useState([]);
     const [limit] = useState(20);
     const [offset, setOffset] = useState(0);
+    const characterFilter = useSelector(state => state.layout.characterFilter);
+    const characters = useSelector(state => state.marvel.characters);
+    const errors = useSelector(state => state.errors);
 
     //* initial load and reset list when filter changes
     useEffect(() => {
-        getCharacters(limit, offset, characterFilter);
+        charactersActions.getList(limit, offset, characterFilter);
     }, [characterFilter]);
 
     //* updates the list when characters is updated
@@ -31,9 +34,9 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
     const fetchData = () => {
         setOffset(limit + offset);
         if (offset === 0) {
-            getCharacters(limit, (offset + limit), characterFilter);
+            charactersActions.getList(limit, (offset + limit), characterFilter);
         } else {
-            getCharacters(limit, offset, characterFilter);
+            charactersActions.getList(limit, offset, characterFilter);
         }
     }
 
@@ -41,7 +44,7 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
     const cleanAndUpdate = () => {
         setList([]);
         setOffset(0);
-        setCharFilter(characterFilter)
+        layoutActions.setCharFilter(characterFilter)
     }
 
     let content = <Spinner />
@@ -52,7 +55,7 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
     }
 
     if (list && list.length > 0) {
-        
+
         content = (
             <InfiniteScroll
                 className="container grid mt-4 mb-5"
@@ -95,11 +98,4 @@ const CharactersList = ({ getCharacters, setCharFilter, characters, errors, hist
     );
 }
 
-
-const mapStateToProps = (state) => ({
-    characterFilter: state.layout.characterFilter,
-    characters: state.marvel.characters,
-    errors: state.errors
-});
-
-export default connect(mapStateToProps, { getCharacters, setCharFilter })(CharactersList);
+export default CharactersList;
